@@ -30,3 +30,16 @@ fn project_euler_002() -> i32
         .take_while(|&num| num < UPPER_LIMIT)
         .sum()
 }
+
+#[cfg(test)]
+mod tests
+{
+    use super::*;
+
+    #[test]
+    fn test_fibonaccis()
+    {
+        let fibs: Vec<i32> = fibonaccis().take(10).collect();
+        assert_eq!(fibs, vec![1, 1, 2, 3, 5, 8, 13, 21, 34, 55]);
+    }
+}
