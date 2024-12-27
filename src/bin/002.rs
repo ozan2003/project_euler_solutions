@@ -6,7 +6,7 @@ fn fibonaccis() -> impl Iterator<Item = i32>
 {
     let mut a = 0;
     let mut b = 1;
-    
+
     std::iter::from_fn(move || {
         (a, b) = (b, a + b);
         Some(a)
@@ -21,14 +21,14 @@ fn fibonaccis() -> impl Iterator<Item = i32>
 ///
 /// By considering the terms in the Fibonacci sequence whose values do not
 /// exceed four million, find the sum of the even-valued terms.
-fn project_euler_002() -> Option<i32>
+fn project_euler_002() -> i32
 {
     const UPPER_LIMIT: i32 = 4_000_000;
 
-    Some(fibonaccis()
+    fibonaccis()
         .filter(|&num| num % 2 == 0)
         .take_while(|&num| num < UPPER_LIMIT)
-        .sum())
+        .sum()
 }
 
 #[cfg(test)]

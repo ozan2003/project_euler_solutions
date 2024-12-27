@@ -4,13 +4,12 @@ project_euler_solution!(005);
 
 /// # GCD
 /// Calculate the greatest common divisor of two numbers.
-/// 
+///
 /// # Examples
 /// ```
 /// assert_eq!(gcd(1071, 462), 21);
 /// assert_eq!(gcd(2, 3), 1);
 /// ```
-/// 
 fn gcd(mut a: i32, mut b: i32) -> i32
 {
     while b != 0
@@ -25,7 +24,7 @@ fn gcd(mut a: i32, mut b: i32) -> i32
 
 /// # LCM
 /// Calculate the least common multiple of two numbers.
-/// 
+///
 /// # Examples
 /// ```
 /// assert_eq!(lcm(21, 6), 42);
@@ -43,9 +42,9 @@ fn lcm(a: i32, b: i32) -> i32
 ///
 /// What is the smallest positive number that is evenly divisible by all of the
 /// numbers from 1 to 20?
-fn project_euler_005() -> Option<i32>
+fn project_euler_005() -> i32
 {
     // Calculate lcm(1..=20).
     // lcm(1, lcm(2, lcm(3, lcm(4, lcm(5, lcm(6, lcm(7, ... lcm(19, 20))))))))
-    Some((1..=20).fold(1, lcm))
+    (1..=20).fold(1, lcm)
 }

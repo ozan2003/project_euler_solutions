@@ -41,9 +41,10 @@ fn pythagorean_triples() -> impl Iterator<Item = (i32, i32, i32)>
 /// For example, 3^2 + 4^2 = 9 + 16 = 25 = 5^2.
 ///
 /// There exists exactly one Pythagorean triplet for which a + b + c = 1000.
-fn project_euler_009() -> Option<i32>
+fn project_euler_009() -> i32
 {
     pythagorean_triples()
         .find(|&(a, b, c)| a + b + c == 1000)
         .map(|(a, b, c)| a * b * c)
+        .unwrap()
 }
