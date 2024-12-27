@@ -22,7 +22,7 @@ fn is_palindrome(num: i32) -> bool
 /// from the product of two 2-digit numbers is 9009 = 91 * 99.
 ///
 /// Find the largest palindrome made from the product of two 3-digit numbers.
-fn project_euler_004() -> Option<i32>
+fn project_euler_004() -> i32
 {
     let mut max_palindrome = 0;
 
@@ -38,5 +38,5 @@ fn project_euler_004() -> Option<i32>
         }
     }
 
-    Some(max_palindrome)
+    max_palindrome
 }

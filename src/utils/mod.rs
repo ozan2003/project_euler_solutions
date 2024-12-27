@@ -19,7 +19,7 @@ macro_rules! project_euler_solution {
             fn main()
             {
                 let start = std::time::Instant::now();
-                let result = [<project_euler_ $number>]().unwrap();
+                let result = [<project_euler_ $number>]();
                 let elapsed = start.elapsed();
                 println!("answer: {}", result);
                 println!("took {:.2?}", elapsed);

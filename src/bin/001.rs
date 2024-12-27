@@ -7,10 +7,10 @@ project_euler_solution!(001);
 /// The sum of these multiples is 23.
 /// 
 /// Find the sum of all the multiples of 3 or 5 below 1000.
-fn project_euler_001() -> Option<i32>
+fn project_euler_001() -> i32
 {
     // Example implementation
-    Some((1..1000)
+    (1..1000)
         .filter(|&num| num % 3 == 0 || num % 5 == 0)
-        .sum())
+        .sum()
 }
