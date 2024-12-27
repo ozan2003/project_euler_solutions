@@ -21,14 +21,14 @@ fn fibonaccis() -> impl Iterator<Item = i32>
 ///
 /// By considering the terms in the Fibonacci sequence whose values do not
 /// exceed four million, find the sum of the even-valued terms.
-fn project_euler_002() -> i32
+fn project_euler_002() -> Option<i32>
 {
     const UPPER_LIMIT: i32 = 4_000_000;
 
-    fibonaccis()
+    Some(fibonaccis()
         .filter(|&num| num % 2 == 0)
         .take_while(|&num| num < UPPER_LIMIT)
-        .sum()
+        .sum())
 }
 
 #[cfg(test)]
