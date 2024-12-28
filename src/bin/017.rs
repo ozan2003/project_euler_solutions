@@ -56,12 +56,17 @@ fn number_to_text(num: u64) -> String
 
     let mut word = String::new();
 
+    /*
+     * Start from the biggest number and work our way down to the smallest,
+     * recursively.
+     */
     if num < 20
     {
         word.push_str(WORD_REPR.get(&num).unwrap());
     }
     else if num < HUNDRED
     {
+        // Number <- Number / 10 * 10 + Number % 10
         word.push_str(WORD_REPR.get(&(num / TEN * TEN)).unwrap());
         if num % TEN != 0
         {
