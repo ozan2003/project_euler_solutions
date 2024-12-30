@@ -15,7 +15,7 @@ project_euler_solution!(024);
 /// 5, 6, 7, 8 and 9?
 fn next_permutation<T: Ord>(arr: &mut [T]) -> bool
 {
-    let last = arr.len() - 1;
+    let last = arr.len().saturating_sub(1);
 
     // Find the first index 'i' such that arr[i] < arr[i + 1].
     let i = std::iter::from_fn(|| -> Option<usize> {
