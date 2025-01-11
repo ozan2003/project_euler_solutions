@@ -17,10 +17,10 @@ fn next_permutation<T: Ord>(arr: &mut [T]) -> bool
     })
     .next();
 
-    let i = match i
+    let Some(i) = i
+    else
     {
-        | Some(index) => index,
-        | None => return false,
+        return false;
     };
 
     // Find the smallest element greater than arr[i] to the right of
