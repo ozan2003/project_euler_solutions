@@ -22,12 +22,9 @@ fn pythagorean_triples() -> impl Iterator<Item = (i32, i32, i32)>
 {
     // https://mathworld.wolfram.com/PythagoreanTriple.html
 
-    // 1, 2, 3,
-    // v\u
-    // f(), f(1, 1), f(2, 1), f(3, 1)...
-    //      f(1, 2), f(2, 2), f(3, 2)...
-    //               f(2, 3), f(3, 3)...
-    //   .     .        .        .
+    // {1, 2, 3, ...}
+    // {x_1, x_2, x_3, ...}
+    // x = f(v, u) = (v^2 - u^2, 2uv, v^2 + u^2)
     (1..).flat_map(|v| (1..v).map(move |u| (v * v - u * u, 2 * u * v, v * v + u * u)))
 }
 
