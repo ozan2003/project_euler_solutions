@@ -25,9 +25,9 @@ fn number_of_consecutive_primes<F: Fn(i32) -> i32>(func: F) -> u32
 /// `n^2 + n + 41`
 ///
 /// It turns out that the formula will produce 40 primes for the consecutive
-/// values `n = 0` to `39`. However, when `n = 40`, `40^2 + 40 + 41 = 40(40 + 1) + 41`
-/// is divisible by `41`, and certainly when `n = 41`, `41^2 + 41 + 41` is clearly
-/// divisible by `41`.
+/// values `n = 0` to `39`. However, when `n = 40`, `40^2 + 40 + 41 = 40(40 + 1)
+/// + 41` is divisible by `41`, and certainly when `n = 41`, `41^2 + 41 + 41` is
+/// clearly divisible by `41`.
 ///
 /// The incredible formula `n^2 - 79n + 1601` was discovered, which produces 80
 /// primes for the consecutive values `n = 0` to `79`. The product of the
@@ -37,11 +37,12 @@ fn number_of_consecutive_primes<F: Fn(i32) -> i32>(func: F) -> u32
 ///
 /// `n^2 + an + b`, where `|a| < 1000` and `|b| < 1000`
 ///
-/// where `|n|` is the modulus/absolute value of `n` e.g. `|11| = 11` and `|-4| = 4`
+/// where `|n|` is the modulus/absolute value of `n` e.g. `|11| = 11` and `|-4|
+/// = 4`
 ///
-/// Find the product of the coefficients, `a` and `b`, for the quadratic expression
-/// that produces the maximum number of primes for consecutive values of `n`,
-/// starting with `n = 0`.
+/// Find the product of the coefficients, `a` and `b`, for the quadratic
+/// expression that produces the maximum number of primes for consecutive values
+/// of `n`, starting with `n = 0`.
 fn project_euler_027() -> i32
 {
     let mut max_consecutive_prime_n: u32 = 0;
@@ -68,4 +69,17 @@ fn project_euler_027() -> i32
     }
 
     max_product
+}
+
+#[cfg(test)]
+mod tests
+{
+    use super::*;
+
+    #[test]
+    fn test_number_of_consecutive_primes()
+    {
+        assert_eq!(number_of_consecutive_primes(|n| n * n + n + 41), 40);
+        assert_eq!(number_of_consecutive_primes(|n| n * n - 79 * n + 1601), 80);
+    }
 }
