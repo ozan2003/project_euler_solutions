@@ -71,7 +71,6 @@ fn project_euler_099() -> usize
         .zip(1..)
         .max_by_key(|(nums, _line_num)| {
             let (base, exp) = nums
-                // Result itself is reference, borrow its internal Ok(...) instead.
                 .as_ref()
                 .unwrap()
                 .split_once(',')
