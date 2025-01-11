@@ -66,11 +66,12 @@ fn project_euler_099() -> usize
 
     let buf = BufReader::new(file);
 
-    let (line_num, _max_exp) = buf
+    let (_max_exp, line_num) = buf
         .lines()
-        .enumerate()
-        .max_by_key(|(_line_num, nums)| {
+        .zip(1..)
+        .max_by_key(|(nums, _line_num)| {
             let (base, exp) = nums
+                // Result itself is reference, access its internal Ok(...) by reference instead.
                 .as_ref()
                 .unwrap()
                 .split_once(',')
@@ -83,5 +84,5 @@ fn project_euler_099() -> usize
         })
         .unwrap();
 
-    line_num + 1
+    line_num
 }
