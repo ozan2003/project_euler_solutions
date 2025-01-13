@@ -43,6 +43,7 @@ fn number_of_consecutive_primes<F: Fn(i32) -> i32>(func: F) -> u32
 /// Find the product of the coefficients, `a` and `b`, for the quadratic
 /// expression that produces the maximum number of primes for consecutive values
 /// of `n`, starting with `n = 0`.
+#[allow(clippy::doc_markdown)]
 fn project_euler_027() -> i32
 {
     let mut max_consecutive_prime_n: u32 = 0;
