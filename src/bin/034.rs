@@ -3,11 +3,11 @@ use project_euler::project_euler_solution;
 project_euler_solution!(034);
 
 // Factorials of 0 to 9 pre-calculated.
-const FACTORIALS: [i32; 10] = [1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362_880];
+const FACTORIALS: [u32; 10] = [1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362_880];
 
 // Finds the sum of all digits' factorials of a number.
 #[allow(clippy::cast_sign_loss)]
-fn digit_factorial_sum(mut num: i32) -> i32
+fn digit_factorial_sum(mut num: u32) -> u32
 {
     let mut sum = 0;
 
@@ -23,7 +23,7 @@ fn digit_factorial_sum(mut num: i32) -> i32
 // Checks if a number is a curious number.
 // A curious number is a number that is equal to the sum of the factorials of
 // its digits.
-fn is_curious_number(num: i32) -> bool
+fn is_curious_number(num: u32) -> bool
 {
     num == digit_factorial_sum(num)
 }
@@ -38,9 +38,9 @@ fn is_curious_number(num: i32) -> bool
 /// their digits.
 ///
 /// Note: As 1! = 1 and 2! = 2 are not sums they are not included.
-fn project_euler_034() -> i32
+fn project_euler_034() -> u32
 {
-    const UPPER_LIMIT: i32 = 60000; // 60000 should be enough.
+    const UPPER_LIMIT: u32 = 60000; // 60000 should be enough.
 
     // Don't include 1 and 2.
     (3..UPPER_LIMIT)
