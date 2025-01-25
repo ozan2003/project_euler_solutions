@@ -15,7 +15,10 @@ project_euler_solution!(035);
 /// ```
 fn rotations(mut num: u64) -> impl Iterator<Item = u64>
 {
-    let mut num_len = u32::try_from(number_length(i32::try_from(num).unwrap())).unwrap();
+    let mut num_len = u32::try_from(number_length(
+        i32::try_from(num).expect("Number too big for i32."),
+    ))
+    .expect("Number too big for u32.");
     let pow = 10_u64.pow(num_len - 1);
 
     std::iter::from_fn(move || {
