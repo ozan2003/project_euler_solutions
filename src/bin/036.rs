@@ -7,6 +7,7 @@ const DIGITS: [u8; 16] = [
 ];
 
 // Convert a number to a base N number.
+#[allow(clippy::cast_sign_loss)]
 fn to_base<const N: i32>(mut num: i32) -> Vec<u8>
 {
     let mut converted = Vec::with_capacity(number_length_with_base(num, N as u32).unwrap());

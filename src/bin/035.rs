@@ -15,7 +15,7 @@ project_euler_solution!(035);
 /// ```
 fn rotations(mut num: u64) -> impl Iterator<Item = u64>
 {
-    let mut num_len = number_length(num as i32) as u32;
+    let mut num_len = u32::try_from(number_length(i32::try_from(num).unwrap())).unwrap();
     let pow = 10_u64.pow(num_len - 1);
 
     std::iter::from_fn(move || {
@@ -33,6 +33,7 @@ fn rotations(mut num: u64) -> impl Iterator<Item = u64>
     })
 }
 
+#[allow(clippy::explicit_iter_loop)]
 fn project_euler_035() -> usize
 {
     const UPPER_LIMIT: u64 = 1_000_000;
@@ -41,7 +42,7 @@ fn project_euler_035() -> usize
         .primes(UPPER_LIMIT)
         .copied()
         .collect();
-    
+
     let mut tally = 0;
     for &num in primes.iter()
     {
