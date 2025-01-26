@@ -8,6 +8,7 @@ chrono = "0.4.39"
 dashu = "0.4.2"
 num-prime = "0.4.4"
 paste = "1.0.15"
+permutohedron = "0.2.4"
 phf = { version = "0.11.2", features = ["macros"] }
 
 [profile.release]
