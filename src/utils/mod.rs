@@ -63,7 +63,7 @@ pub fn lcm(a: i32, b: i32) -> i32
 
 /// # Number Length
 /// Calculate the number of digits in a number.[1]
-/// 
+///
 /// [1]: https://mathworld.wolfram.com/NumberLength.html
 ///
 /// # Examples
@@ -81,7 +81,7 @@ pub fn number_length(num: i32) -> usize
 
 /// # Number Length with Base
 /// Calculate the number of digits in a number in base B.[1]
-/// 
+///
 /// [1]: https://mathworld.wolfram.com/NumberLength.html
 ///
 /// # Examples
@@ -89,17 +89,33 @@ pub fn number_length(num: i32) -> usize
 /// assert_eq!(number_length_base_b(123, 10), 3);
 /// assert_eq!(number_length_base_b(585, 2), 10);
 /// ```
-/// 
+///
 /// # Errors
 /// Returns an error if the base is greater than 16.
 #[allow(clippy::cast_possible_truncation)]
 #[allow(clippy::cast_sign_loss)]
 pub fn number_length_with_base(num: i32, base: u32) -> Result<usize, &'static str>
-{   
+{
     if base > 16
     {
         return Err("Base must be less than 16.");
     }
 
     Ok(((f64::from(num)).log(f64::from(base)).floor()) as usize + 1)
+}
+
+/// Check if a decimal number is an integer.
+///
+/// # Examples
+/// ```
+/// assert!(is_integer(-1.0));
+/// assert!(is_integer(2.0));
+/// assert!(!is_integer(1.1));
+/// assert!(!is_integer(2.0000000000001));
+/// ```
+#[must_use]
+pub fn is_integer(n: f64) -> bool
+{
+    //n == n.trunc()
+    (n - n.trunc()).abs() < f64::EPSILON
 }

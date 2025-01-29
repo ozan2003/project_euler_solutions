@@ -1,13 +1,6 @@
-use project_euler::project_euler_solution;
+use project_euler::{project_euler_solution, utils::is_integer};
 
 project_euler_solution!(045);
-
-// Check if a decimal number is an integer.
-fn is_integer(n: f64) -> bool
-{
-    //n == n.trunc()
-    (n - n.trunc()).abs() < f64::EPSILON
-}
 
 // Triangular numbers.
 // 1, 3, 6, 10, 15, ...
@@ -66,15 +59,6 @@ fn project_euler_045() -> usize
 mod tests
 {
     use super::*;
-
-    #[test]
-    fn test_is_integer()
-    {
-        assert!(is_integer(-1.0));
-        assert!(is_integer(2.0));
-        assert!(!is_integer(1.1));
-        assert!(!is_integer(2.0000000000001));
-    }
 
     #[test]
     fn test_triangulars()
