@@ -70,7 +70,7 @@ fn number_to_text(num: u64) -> String
         word.push_str(WORD_REPR.get(&(num / TEN * TEN)).unwrap());
         if num % TEN != 0
         {
-            word.push('-');
+            //word.push('-');
             word.push_str(WORD_REPR.get(&(num % TEN)).unwrap());
         }
     }
@@ -149,7 +149,9 @@ fn number_to_text(num: u64) -> String
 fn project_euler_017() -> usize
 {
     (1..=1000)
-        .map(|num| number_to_text(num).len())
+        // Count individual letters instead of bytes for correctness.
+        // Coulda used Vec<u8> or len() since all number names are ASCII compliant.
+        .map(|num| number_to_text(num).chars().count())
         .sum()
 }
 
@@ -165,12 +167,12 @@ mod tests
         assert_eq!(number_to_text(1), "One");
         assert_eq!(number_to_text(16), "Sixteen");
         assert_eq!(number_to_text(20), "Twenty");
-        assert_eq!(number_to_text(45), "Forty-Five");
+        assert_eq!(number_to_text(45), "FortyFive");
         assert_eq!(number_to_text(100), "OneHundred");
         assert_eq!(number_to_text(101), "OneHundredandOne");
-        assert_eq!(number_to_text(999), "NineHundredandNinety-Nine");
+        assert_eq!(number_to_text(999), "NineHundredandNinetyNine");
         assert_eq!(number_to_text(1000), "OneThousand");
-        assert_eq!(number_to_text(1234), "OneThousandTwoHundredandThirty-Four");
+        assert_eq!(number_to_text(1234), "OneThousandTwoHundredandThirtyFour");
         assert_eq!(number_to_text(1000000), "OneMillion");
         assert_eq!(number_to_text(1000001), "OneMillionOne");
         assert_eq!(number_to_text(1000000000), "OneBillion");
