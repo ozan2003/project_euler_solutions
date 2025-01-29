@@ -1,5 +1,6 @@
-use phf::{Map, phf_map};
 use project_euler::project_euler_solution;
+use std::collections::HashMap;
+use std::sync::LazyLock;
 
 const TEN: u64 = 10;
 const HUNDRED: u64 = 100;
@@ -16,43 +17,45 @@ project_euler_solution!(017);
 #[allow(clippy::too_many_lines)]
 fn number_to_text(num: u64) -> String
 {
-    static WORD_REPR: Map<u64, &str> = phf_map! {
-        0_u64 => "Zero",
-        1_u64 => "One",
-        2_u64 => "Two",
-        3_u64 => "Three",
-        4_u64 => "Four",
-        5_u64 => "Five",
-        6_u64 => "Six",
-        7_u64 => "Seven",
-        8_u64 => "Eight",
-        9_u64 => "Nine",
-        10_u64 => "Ten",
-        11_u64 => "Eleven",
-        12_u64 => "Twelve",
-        13_u64 => "Thirteen",
-        14_u64 => "Fourteen",
-        15_u64 => "Fifteen",
-        16_u64 => "Sixteen",
-        17_u64 => "Seventeen",
-        18_u64 => "Eighteen",
-        19_u64 => "Nineteen",
-        20_u64 => "Twenty",
-        30_u64 => "Thirty",
-        40_u64 => "Forty",
-        50_u64 => "Fifty",
-        60_u64 => "Sixty",
-        70_u64 => "Seventy",
-        80_u64 => "Eighty",
-        90_u64 => "Ninety",
-        100_u64 => "Hundred",
-        1000_u64 => "Thousand",
-        1_000_000_u64 => "Million",
-        1_000_000_000_u64 => "Billion",
-        1_000_000_000_000_u64 => "Trillion",
-        1_000_000_000_000_000_u64 => "Quadrillion",
-        1_000_000_000_000_000_000_u64 => "Quintillion",
-    };
+    static WORD_REPR: LazyLock<HashMap<u64, &str>> = LazyLock::new(|| {
+        HashMap::from([
+            (0, "Zero"),
+            (1, "One"),
+            (2, "Two"),
+            (3, "Three"),
+            (4, "Four"),
+            (5, "Five"),
+            (6, "Six"),
+            (7, "Seven"),
+            (8, "Eight"),
+            (9, "Nine"),
+            (TEN, "Ten"),
+            (11, "Eleven"),
+            (12, "Twelve"),
+            (13, "Thirteen"),
+            (14, "Fourteen"),
+            (15, "Fifteen"),
+            (16, "Sixteen"),
+            (17, "Seventeen"),
+            (18, "Eighteen"),
+            (19, "Nineteen"),
+            (20, "Twenty"),
+            (30, "Thirty"),
+            (40, "Forty"),
+            (50, "Fifty"),
+            (60, "Sixty"),
+            (70, "Seventy"),
+            (80, "Eighty"),
+            (90, "Ninety"),
+            (HUNDRED, "Hundred"),
+            (THOUSAND, "Thousand"),
+            (MILLION, "Million"),
+            (BILLION, "Billion"),
+            (TRILLION, "Trillion"),
+            (QUADRILLION, "Quadrillion"),
+            (QUINTILLION, "Quintillion"),
+        ])
+    });
 
     let mut word = String::new();
 
