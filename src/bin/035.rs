@@ -13,13 +13,10 @@ project_euler_solution!(035);
 /// assert_eq!(rotations.next(), Some(971));
 /// assert_eq!(rotations.next(), None);
 /// ```
-fn rotations(mut num: u64) -> impl Iterator<Item = u64>
+fn rotations(mut num: u32) -> impl Iterator<Item = u32>
 {
-    let mut num_len = u32::try_from(number_length(
-        i32::try_from(num).expect("Number too big for i32."),
-    ))
-    .expect("Number too big for u32.");
-    let pow = 10_u64.pow(num_len - 1);
+    let mut num_len = number_length(num) as u32;
+    let pow = 10_u32.pow(num_len - 1);
 
     std::iter::from_fn(move || {
         if num_len == 0
@@ -36,14 +33,22 @@ fn rotations(mut num: u64) -> impl Iterator<Item = u64>
     })
 }
 
+/// # Circular Primes
+/// The number, 197, is called a circular prime because all rotations of the
+/// digits: 197, 971, and 719, are themselves prime.
+///
+/// There are thirteen such primes below 100: 2, 3, 5, 7, 11, 13, 17, 31, 37,
+/// 71, 73, 79, and 97.
+///
+/// How many circular primes are there below one million?
 #[allow(clippy::explicit_iter_loop)]
 fn project_euler_035() -> usize
 {
     const UPPER_LIMIT: u64 = 1_000_000;
 
-    let primes: HashSet<u64> = NaiveBuffer::new()
+    let primes: HashSet<u32> = NaiveBuffer::new()
         .primes(UPPER_LIMIT)
-        .copied()
+        .map(|p| *p as u32)
         .collect();
 
     let mut tally = 0;
@@ -58,7 +63,6 @@ fn project_euler_035() -> usize
     tally
 }
 
-// test
 #[cfg(test)]
 mod tests
 {
