@@ -48,7 +48,7 @@ fn project_euler_035() -> usize
 
     let primes: HashSet<u32> = NaiveBuffer::new()
         .primes(UPPER_LIMIT)
-        .map(|p| *p as u32)
+        .map(|&p| p as u32)
         .collect();
 
     let mut tally = 0;
