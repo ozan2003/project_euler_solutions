@@ -1,3 +1,6 @@
+use num_traits::float::Float;
+use num_traits::int::PrimInt;
+
 /// A macro that generates a main function for Project Euler solutions.
 ///
 /// This macro creates a standardized main function that:
@@ -35,9 +38,9 @@ macro_rules! project_euler_solution {
 /// assert_eq!(gcd(2, 3), 1);
 /// ```
 #[must_use]
-pub fn gcd(mut a: i32, mut b: i32) -> i32
+pub fn gcd<T: PrimInt>(mut a: T, mut b: T) -> T
 {
-    while b != 0
+    while b != T::zero()
     {
         let t = b;
         b = a % b;
@@ -56,7 +59,7 @@ pub fn gcd(mut a: i32, mut b: i32) -> i32
 /// assert_eq!(lcm(2, 3), 6);
 /// ```
 #[must_use]
-pub fn lcm(a: i32, b: i32) -> i32
+pub fn lcm<T: PrimInt>(a: T, b: T) -> T
 {
     a / gcd(a, b) * b // Prevent overflow.
 }
@@ -74,7 +77,9 @@ pub fn lcm(a: i32, b: i32) -> i32
 #[must_use]
 #[allow(clippy::cast_possible_truncation)]
 #[allow(clippy::cast_sign_loss)]
-pub fn number_length(num: i32) -> usize
+pub fn number_length<T: PrimInt>(num: T) -> usize
+where
+    f64: std::convert::From<T>,
 {
     ((f64::from(num)).log10().floor()) as usize + 1
 }
@@ -94,9 +99,11 @@ pub fn number_length(num: i32) -> usize
 /// Returns an error if the base is greater than 16.
 #[allow(clippy::cast_possible_truncation)]
 #[allow(clippy::cast_sign_loss)]
-pub fn number_length_with_base(num: i32, base: u32) -> Result<usize, &'static str>
+pub fn number_length_with_base<T: PrimInt>(num: T, base: T) -> Result<usize, &'static str>
+where
+    f64: std::convert::From<T>,
 {
-    if base > 16
+    if base > T::from(16).unwrap()
     {
         return Err("Base must be less than 16.");
     }
@@ -114,8 +121,71 @@ pub fn number_length_with_base(num: i32, base: u32) -> Result<usize, &'static st
 /// assert!(!is_integer(2.0000000000001));
 /// ```
 #[must_use]
-pub fn is_integer(n: f64) -> bool
+pub fn is_integer<T: Float>(n: T) -> bool
 {
     //n == n.trunc()
-    (n - n.trunc()).abs() < f64::EPSILON
+    (n - n.trunc()).abs() < Float::epsilon()
+}
+
+#[cfg(test)]
+mod tests
+{
+    use core::f64;
+
+    use super::*;
+
+    #[test]
+    fn test_gcd()
+    {
+        assert_eq!(gcd(1071, 462), 21);
+        assert_eq!(gcd(2, 3), 1);
+        assert_eq!(gcd(48, 18), 6);
+        assert_eq!(gcd(54, 24), 6);
+        assert_eq!(gcd(7, 13), 1);
+        assert_eq!(gcd(28851538, 1183019), 17657);
+    }
+
+    #[test]
+    fn test_lcm()
+    {
+        assert_eq!(lcm(21, 6), 42);
+        assert_eq!(lcm(2, 3), 6);
+        assert_eq!(lcm(15, 20), 60);
+        assert_eq!(lcm(12, 18), 36);
+        assert_eq!(lcm(7, 13), 91);
+        assert_eq!(lcm(48, 180), 720);
+    }
+
+    #[test]
+    fn test_number_length()
+    {
+        assert_eq!(number_length(123), 3);
+        assert_eq!(number_length(1000), 4);
+        assert_eq!(number_length(1), 1);
+        assert_eq!(number_length(999999), 6);
+        assert_eq!(number_length(1234567), 7);
+    }
+
+    #[test]
+    fn test_number_length_with_base()
+    {
+        assert_eq!(number_length_with_base(123, 10).unwrap(), 3);
+        assert_eq!(number_length_with_base(585, 2).unwrap(), 10);
+        assert_eq!(number_length_with_base(15, 16).unwrap(), 1);
+        assert_eq!(number_length_with_base(255, 16).unwrap(), 2);
+        assert!(number_length_with_base(100, 17).is_err());
+    }
+
+    #[test]
+    fn test_is_integer()
+    {
+        assert!(is_integer(-1.0));
+        assert!(is_integer(2.0));
+        assert!(!is_integer(1.1));
+        assert!(!is_integer(2.0000000000001));
+        assert!(is_integer(0.0));
+        assert!(is_integer(-5.0));
+        assert!(!is_integer(f64::consts::PI));
+        assert!(!is_integer(-2.5));
+    }
 }
