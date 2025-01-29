@@ -1,18 +1,13 @@
-use phf::{Map, phf_map};
 use project_euler::project_euler_solution;
+use std::collections::HashMap;
 use std::fs::File;
 use std::io::{BufReader, prelude::*};
+use std::sync::LazyLock;
 
 project_euler_solution!(022);
 
-const ALPHABET_INDEX: Map<u8, usize> = phf_map! {
-    b'A' => 1, b'B' => 2, b'C' => 3, b'D' => 4, b'E' => 5,
-    b'F' => 6, b'G' => 7, b'H' => 8, b'I' => 9, b'J' => 10,
-    b'K' => 11, b'L' => 12, b'M' => 13, b'N' => 14, b'O' => 15,
-    b'P' => 16, b'Q' => 17, b'R' => 18, b'S' => 19, b'T' => 20,
-    b'U' => 21, b'V' => 22, b'W' => 23, b'X' => 24, b'Y' => 25,
-    b'Z' => 26
-};
+static ALPHABET_INDEX: LazyLock<HashMap<u8, usize>> =
+    LazyLock::new(|| (b'A'..=b'Z').zip(1..).collect());
 
 fn name_score(name: &[u8]) -> usize
 {
