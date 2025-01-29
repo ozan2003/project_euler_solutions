@@ -8,9 +8,9 @@ const DIGITS: [u8; 16] = [
 
 // Convert a number to a base N number.
 #[allow(clippy::cast_sign_loss)]
-fn to_base<const N: i32>(mut num: i32) -> Vec<u8>
+fn to_base<const N: u32>(mut num: u32) -> Vec<u8>
 {
-    let mut converted = Vec::with_capacity(number_length_with_base(num, N as u32).unwrap());
+    let mut converted = Vec::with_capacity(number_length_with_base(num, N).unwrap());
 
     while num > 0
     {
@@ -42,9 +42,9 @@ fn is_palindrome(digits: &[u8]) -> bool
 ///
 /// (Please note that the palindromic number, in either base, may not include
 /// leading zeros.)
-fn project_euler_036() -> i32
+fn project_euler_036() -> u32
 {
-    const UPPER_LIMIT: i32 = 1_000_000;
+    const UPPER_LIMIT: u32 = 1_000_000;
 
     (1..UPPER_LIMIT)
         // Skip even numbers as they will have trailing zeros in binary. (Binaries won't include
