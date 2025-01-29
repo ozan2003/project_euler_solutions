@@ -422,6 +422,7 @@ dependencies = [
  "chrono",
  "dashu",
  "num-prime",
+ "num-traits",
  "paste",
  "permutohedron",
  "phf",
