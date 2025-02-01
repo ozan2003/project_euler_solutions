@@ -96,16 +96,19 @@ where
 /// ```
 ///
 /// # Errors
-/// Returns an error if the base is greater than 16.
+/// Returns an error if the base is greater than 16 or less than 2.
+///
+/// # Panics
+/// Panics if the conversion from integers 2..=16 to type T fails.
 #[allow(clippy::cast_possible_truncation)]
 #[allow(clippy::cast_sign_loss)]
 pub fn number_length_with_base<T: PrimInt>(num: T, base: T) -> Result<usize, &'static str>
 where
     f64: std::convert::From<T>,
 {
-    if base > T::from(16).unwrap()
+    if base > T::from(16).unwrap() || base < T::from(2).unwrap()
     {
-        return Err("Base must be less than 16.");
+        return Err("Base must be between 2 and 16.");
     }
 
     Ok(((f64::from(num)).log(f64::from(base)).floor()) as usize + 1)
@@ -174,6 +177,7 @@ mod tests
         assert_eq!(number_length_with_base(15, 16).unwrap(), 1);
         assert_eq!(number_length_with_base(255, 16).unwrap(), 2);
         assert!(number_length_with_base(100, 17).is_err());
+        assert!(number_length_with_base(100, 1).is_err());
     }
 
     #[test]

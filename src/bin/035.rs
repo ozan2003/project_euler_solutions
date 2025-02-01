@@ -15,7 +15,7 @@ project_euler_solution!(035);
 /// ```
 fn rotations(mut num: u32) -> impl Iterator<Item = u32>
 {
-    let mut num_len = number_length(num) as u32;
+    let mut num_len = u32::try_from(number_length(num)).expect("number length overflow");
     let pow = 10_u32.pow(num_len - 1);
 
     std::iter::from_fn(move || {
@@ -48,7 +48,7 @@ fn project_euler_035() -> usize
 
     let primes: HashSet<u32> = NaiveBuffer::new()
         .primes(UPPER_LIMIT)
-        .map(|&p| p as u32)
+        .map(|&p| u32::try_from(p).expect("prime overflow"))
         .collect();
 
     let mut tally = 0;
