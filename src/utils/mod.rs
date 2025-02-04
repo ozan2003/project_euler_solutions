@@ -1,5 +1,9 @@
 use num_traits::float::Float;
 use num_traits::int::PrimInt;
+use std::mem::swap;
+
+pub mod factors;
+pub mod primes;
 
 /// A macro that generates a main function for Project Euler solutions.
 ///
@@ -38,13 +42,12 @@ macro_rules! project_euler_solution {
 /// assert_eq!(gcd(2, 3), 1);
 /// ```
 #[must_use]
-pub fn gcd<T: PrimInt>(mut a: T, mut b: T) -> T
+pub fn gcd<T: PrimInt + std::ops::RemAssign>(mut a: T, mut b: T) -> T
 {
     while b != T::zero()
     {
-        let t = b;
-        b = a % b;
-        a = t;
+        a %= b;
+        swap(&mut a, &mut b);
     }
 
     a
@@ -59,7 +62,7 @@ pub fn gcd<T: PrimInt>(mut a: T, mut b: T) -> T
 /// assert_eq!(lcm(2, 3), 6);
 /// ```
 #[must_use]
-pub fn lcm<T: PrimInt>(a: T, b: T) -> T
+pub fn lcm<T: PrimInt + std::ops::RemAssign>(a: T, b: T) -> T
 {
     a / gcd(a, b) * b // Prevent overflow.
 }
@@ -133,9 +136,8 @@ pub fn is_integer<T: Float>(n: T) -> bool
 #[cfg(test)]
 mod tests
 {
-    use core::f64;
-
     use super::*;
+    use core::f64;
 
     #[test]
     fn test_gcd()
