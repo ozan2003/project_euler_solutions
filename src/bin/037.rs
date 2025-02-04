@@ -1,5 +1,5 @@
-use num_prime::nt_funcs::is_prime;
 use project_euler::project_euler_solution;
+use project_euler::utils::primes::is_prime;
 
 project_euler_solution!(037);
 
@@ -49,13 +49,13 @@ fn right_truncate(mut num: u32) -> impl Iterator<Item = u32>
 // removing the leftmost and rightmost digits.
 fn is_truncatable_prime(num: u32) -> bool
 {
-    if !is_prime(&num, None).probably()
+    if !is_prime(num.into())
     {
         return false;
     }
 
-    left_truncate(num).all(|num| is_prime(&num, None).probably()) &&
-        right_truncate(num).all(|num| is_prime(&num, None).probably())
+    left_truncate(num).all(|num| is_prime(num.into())) &&
+        right_truncate(num).all(|num| is_prime(num.into()))
 }
 
 /// # Truncatable Primes

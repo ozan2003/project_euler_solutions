@@ -1,4 +1,4 @@
-use num_prime::buffer::NaiveBuffer;
+use project_euler::utils::primes::Primes;
 use project_euler::{project_euler_solution, utils::number_length};
 use std::collections::HashSet;
 
@@ -44,11 +44,11 @@ fn rotations(mut num: u32) -> impl Iterator<Item = u32>
 #[allow(clippy::explicit_iter_loop)]
 fn project_euler_035() -> usize
 {
-    const UPPER_LIMIT: u64 = 1_000_000;
+    const UPPER_LIMIT: usize = 1_000_000;
 
-    let primes: HashSet<u32> = NaiveBuffer::new()
-        .primes(UPPER_LIMIT)
-        .map(|&p| u32::try_from(p).expect("prime overflow"))
+    let primes: HashSet<u32> = Primes::new(UPPER_LIMIT)
+        .iter()
+        .map(|p| u32::try_from(p).expect("prime overflow"))
         .collect();
 
     let mut tally = 0;

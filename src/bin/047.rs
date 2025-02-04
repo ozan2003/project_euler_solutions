@@ -1,12 +1,12 @@
-use num_prime::nt_funcs::factorize;
 use project_euler::project_euler_solution;
+use project_euler::utils::factors::pollards_rho;
 
 project_euler_solution!(047);
 
 // Find the number of distinct prime factors of a number.
 fn distinct_factor_num(num: u32) -> usize
 {
-    factorize(num).len()
+    pollards_rho(num.into()).len()
 }
 
 /// # Distinct Primes Factors

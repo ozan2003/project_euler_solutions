@@ -1,6 +1,6 @@
-use num_prime::nt_funcs::is_prime;
 use permutohedron::Heap;
 use project_euler::project_euler_solution;
+use project_euler::utils::primes::is_prime;
 
 project_euler_solution!(041);
 
@@ -22,7 +22,7 @@ fn project_euler_041() -> u32
             // Build up the numbers.
             perm.iter().fold(0, |acc, &d| acc * 10 + d)
         })
-        .filter(|&n| is_prime(&n, None).probably())
+        .filter(|&n| is_prime(n.into()))
         .max()
         .unwrap()
 }

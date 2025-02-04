@@ -1,5 +1,5 @@
-use num_prime::nt_funcs::is_prime;
 use project_euler::project_euler_solution;
+use project_euler::utils::primes::is_prime;
 
 project_euler_solution!(027);
 
@@ -10,7 +10,7 @@ fn number_of_consecutive_primes<F: Fn(i32) -> i32>(func: F) -> u32
 {
     let mut tally = 0;
 
-    while is_prime(&(func(tally) as u32), None).probably()
+    while is_prime(func(tally) as u64)
     {
         tally += 1;
     }
@@ -52,7 +52,7 @@ fn project_euler_027() -> i32
     // b must be prime since when n = 0, the polynomial equals `b`.
     // Therefore -999 <= b <= 1000 becomes 2 <= b <= 1000.
     let potential_b: Vec<i32> = (2..=1000)
-        .filter(|&x: &i32| is_prime(&(x.unsigned_abs()), None).probably())
+        .filter(|&x: &i32| is_prime(x.try_into().unwrap()))
         .collect();
 
     // a must be odd to ensure we get odd numbers for even n.

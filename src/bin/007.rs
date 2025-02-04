@@ -1,5 +1,5 @@
-use num_prime::nt_funcs::is_prime;
 use project_euler::project_euler_solution;
+use project_euler::utils::primes::is_prime;
 
 project_euler_solution!(007);
 
@@ -10,13 +10,10 @@ project_euler_solution!(007);
 /// What is the 10 001st prime number?
 fn project_euler_007() -> u64
 {
-    // One-liner. This one's much faster.
-    // num_prime::nt_funcs::nth_prime(10_001)
-
     const UPPER_LIMIT: u64 = u64::MAX;
 
     (1..UPPER_LIMIT)
-        .filter(|&num| is_prime(&num, None).probably())
+        .filter(|&num| is_prime(num))
         .nth(10_000)
         .unwrap()
 }
