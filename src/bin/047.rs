@@ -37,10 +37,6 @@ fn project_euler_047() -> u32
         {
             tally += 1;
         }
-        else if tally == 0
-        {
-            continue;
-        }
         else if tally == 4
         {
             return i - 3;
