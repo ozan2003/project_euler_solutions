@@ -14,63 +14,60 @@ const QUINTILLION: u64 = 1_000_000_000_000_000_000;
 project_euler_solution!(017);
 
 // Return the numerical representation of the given number.
-#[allow(clippy::too_many_lines)]
-fn number_to_text(num: u64) -> String
+fn number_to_text(mut num: u64) -> String
 {
     static WORD_REPR: LazyLock<HashMap<u64, &str>> = LazyLock::new(|| {
         HashMap::from([
-            (0, "Zero"),
-            (1, "One"),
-            (2, "Two"),
-            (3, "Three"),
-            (4, "Four"),
-            (5, "Five"),
-            (6, "Six"),
-            (7, "Seven"),
-            (8, "Eight"),
-            (9, "Nine"),
-            (TEN, "Ten"),
-            (11, "Eleven"),
-            (12, "Twelve"),
-            (13, "Thirteen"),
-            (14, "Fourteen"),
-            (15, "Fifteen"),
-            (16, "Sixteen"),
-            (17, "Seventeen"),
-            (18, "Eighteen"),
-            (19, "Nineteen"),
-            (20, "Twenty"),
-            (30, "Thirty"),
-            (40, "Forty"),
-            (50, "Fifty"),
-            (60, "Sixty"),
-            (70, "Seventy"),
-            (80, "Eighty"),
-            (90, "Ninety"),
-            (HUNDRED, "Hundred"),
-            (THOUSAND, "Thousand"),
-            (MILLION, "Million"),
-            (BILLION, "Billion"),
-            (TRILLION, "Trillion"),
-            (QUADRILLION, "Quadrillion"),
-            (QUINTILLION, "Quintillion"),
+            (0, "zero"),
+            (1, "one"),
+            (2, "two"),
+            (3, "three"),
+            (4, "four"),
+            (5, "five"),
+            (6, "six"),
+            (7, "seven"),
+            (8, "eight"),
+            (9, "nine"),
+            (TEN, "ten"),
+            (11, "eleven"),
+            (12, "twelve"),
+            (13, "thirteen"),
+            (14, "fourteen"),
+            (15, "fifteen"),
+            (16, "sixteen"),
+            (17, "seventeen"),
+            (18, "eighteen"),
+            (19, "nineteen"),
+            (20, "twenty"),
+            (30, "thirty"),
+            (40, "forty"),
+            (50, "fifty"),
+            (60, "sixty"),
+            (70, "seventy"),
+            (80, "eighty"),
+            (90, "ninety"),
+            (HUNDRED, "hundred"),
+            (THOUSAND, "thousand"),
+            (MILLION, "million"),
+            (BILLION, "billion"),
+            (TRILLION, "trillion"),
+            (QUADRILLION, "quadrillion"),
+            (QUINTILLION, "quintillion"),
         ])
     });
 
     let mut word = String::new();
 
-    /*
-     * Start from the biggest number and work our way down to the smallest,
-     * recursively.
-     */
+    // Look-ups for numbers less than 1000.
     if num < 20
     {
         word.push_str(WORD_REPR.get(&num).unwrap());
     }
     else if num < HUNDRED
     {
-        // Number <- Number / 10 * 10 + Number % 10
         word.push_str(WORD_REPR.get(&(num / TEN * TEN)).unwrap());
+
+        // Combine the tens with hyphen.
         if num % TEN != 0
         {
             //word.push('-');
@@ -80,6 +77,7 @@ fn number_to_text(num: u64) -> String
     else if num < THOUSAND
     {
         word.push_str(WORD_REPR.get(&(num / HUNDRED)).unwrap());
+        //word.push(' ');
         word.push_str(WORD_REPR.get(&HUNDRED).unwrap());
 
         if num % HUNDRED != 0
@@ -89,50 +87,51 @@ fn number_to_text(num: u64) -> String
             word.push_str(&number_to_text(num % HUNDRED));
         }
     }
-    else if num < MILLION
+    else
     {
-        word.push_str(&number_to_text(num / THOUSAND));
-        word.push_str(WORD_REPR.get(&THOUSAND).unwrap());
+        // Break down denominations, organized from smallest to largest.
+        static DENOMINATIONS: [(u64, &str); 6] = [
+            (QUINTILLION, "quintillion"),
+            (QUADRILLION, "quadrillion"),
+            (TRILLION, "trillion"),
+            (BILLION, "billion"),
+            (MILLION, "million"),
+            (THOUSAND, "thousand"),
+        ];
 
-        if num % THOUSAND != 0
-        {
-            word.push_str(&number_to_text(num % THOUSAND));
-        }
-    }
-    else if num < BILLION
-    {
-        word.push_str(&number_to_text(num / MILLION));
-        word.push_str(WORD_REPR.get(&MILLION).unwrap());
+        //let mut is_in_between = false;
 
-        if num % MILLION != 0
+        for &(denomination, name) in &DENOMINATIONS
         {
-            word.push_str(&number_to_text(num % MILLION));
+            if num >= denomination
+            {
+                /*if is_in_between
+                {
+                    word.push(' ');
+                }*/
+                if num / denomination > 0
+                {
+                    // Get the higher-order part.
+                    word.push_str(&number_to_text(num / denomination));
+                    //word.push(' ');
+                    word.push_str(name);
+                }
+                num %= denomination; // Focus on the remainding portion.
+                // One portion has been processed, meaning that the next portion
+                // will be separated by a space.
+                //is_in_between = true;
+            }
         }
-    }
-    else if num < TRILLION
-    {
-        word.push_str(&number_to_text(num / BILLION));
-        word.push_str(WORD_REPR.get(&BILLION).unwrap());
 
-        if num % BILLION != 0
+        // Process the last portion, which is less than 100.
+        if num > 0
         {
-            word.push_str(&number_to_text(num % BILLION));
+            /*if is_in_between
+            {
+                word.push(' ');
+            }*/
+            word.push_str(&number_to_text(num));
         }
-    }
-    else if num < QUADRILLION
-    {
-        word.push_str(&number_to_text(num / TRILLION));
-        word.push_str(WORD_REPR.get(&TRILLION).unwrap());
-
-        if num % TRILLION != 0
-        {
-            word.push_str(&number_to_text(num % TRILLION));
-        }
-    }
-    else if num < QUINTILLION
-    {
-        word.push_str(&number_to_text(num / QUADRILLION));
-        word.push_str(WORD_REPR.get(&QUADRILLION).unwrap());
     }
 
     word
@@ -166,21 +165,21 @@ mod tests
     #[test]
     fn test_number_to_text()
     {
-        assert_eq!(number_to_text(0), "Zero");
-        assert_eq!(number_to_text(1), "One");
-        assert_eq!(number_to_text(16), "Sixteen");
-        assert_eq!(number_to_text(20), "Twenty");
-        assert_eq!(number_to_text(45), "FortyFive");
-        assert_eq!(number_to_text(100), "OneHundred");
-        assert_eq!(number_to_text(101), "OneHundredandOne");
-        assert_eq!(number_to_text(999), "NineHundredandNinetyNine");
-        assert_eq!(number_to_text(1000), "OneThousand");
-        assert_eq!(number_to_text(1234), "OneThousandTwoHundredandThirtyFour");
-        assert_eq!(number_to_text(1000000), "OneMillion");
-        assert_eq!(number_to_text(1000001), "OneMillionOne");
-        assert_eq!(number_to_text(1000000000), "OneBillion");
-        assert_eq!(number_to_text(1000000001), "OneBillionOne");
-        assert_eq!(number_to_text(1000000000000), "OneTrillion");
-        assert_eq!(number_to_text(1000000000000000), "OneQuadrillion");
+        assert_eq!(number_to_text(0), "zero");
+        assert_eq!(number_to_text(1), "one");
+        assert_eq!(number_to_text(16), "sixteen");
+        assert_eq!(number_to_text(20), "twenty");
+        assert_eq!(number_to_text(45), "fortyfive");
+        assert_eq!(number_to_text(100), "onehundred");
+        assert_eq!(number_to_text(101), "onehundredandone");
+        assert_eq!(number_to_text(999), "ninehundredandninetynine");
+        assert_eq!(number_to_text(1000), "onethousand");
+        assert_eq!(number_to_text(1234), "onethousandtwohundredandthirtyfour");
+        assert_eq!(number_to_text(1000000), "onemillion");
+        assert_eq!(number_to_text(1000001), "onemillionone");
+        assert_eq!(number_to_text(1000000000), "onebillion");
+        assert_eq!(number_to_text(1000000001), "onebillionone");
+        assert_eq!(number_to_text(1000000000000), "onetrillion");
+        assert_eq!(number_to_text(1000000000000000), "onequadrillion");
     }
 }
