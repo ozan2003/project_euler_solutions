@@ -19,16 +19,16 @@ project_euler_solution!(014);
 /// Which starting number, under one million, produces the longest chain?
 ///
 /// NOTE: Once the chain starts the terms are allowed to go above one million.
-fn project_euler_014() -> u64
+fn project_euler_014() -> u32
 {
-    const UPPER_LIMIT: u64 = 1_000_000;
+    const UPPER_LIMIT: u32 = 1_000_000;
 
     (1..UPPER_LIMIT)
         .max_by_key(|&num| collatz_seq(num).count())
         .unwrap()
 }
 
-fn collatz_seq(mut num: u64) -> impl Iterator<Item = u64>
+fn collatz_seq(mut num: u32) -> impl Iterator<Item = u32>
 {
     std::iter::from_fn(move || {
         if num > 1
