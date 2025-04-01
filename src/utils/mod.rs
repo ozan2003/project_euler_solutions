@@ -133,6 +133,38 @@ pub fn is_integer<T: Float>(n: T) -> bool
     (n - n.trunc()).abs() < Float::epsilon()
 }
 
+/// # Min
+///
+/// Find the minimum of a list of numbers.
+///
+/// # Examples
+///
+/// ```
+/// assert_eq!(min!(1, 2, 3), 1);
+/// assert_eq!(min!(-7, 6, 8, -4, 0), -4);
+/// ```
+#[macro_export]
+macro_rules! min {
+    ($x:expr) => ($x);
+    ($x:expr, $($y:expr),+) => (::std::cmp::min($x, min!($($y),+)));
+}
+
+/// # Max
+///
+/// Find the maximum of a list of numbers.
+///
+/// # Examples
+///
+/// ```
+/// assert_eq!(max!(1, 2, 3), 3);
+/// assert_eq!(max!(-7, 6, 8, -4, 0), 8);
+/// ```
+#[macro_export]
+macro_rules! max {
+    ($x:expr) => ($x);
+    ($x:expr, $($y:expr),+) => (::std::cmp::max($x, max!($($y),+)));
+}
+
 #[cfg(test)]
 mod tests
 {
