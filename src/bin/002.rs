@@ -20,6 +20,7 @@ fn project_euler_002() -> i32
         .sum()
 }
 
+/// An iterator that generates the Fibonacci sequence.
 fn fibonaccis() -> impl Iterator<Item = i32>
 {
     let mut a = 0;
