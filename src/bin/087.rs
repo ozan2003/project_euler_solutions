@@ -26,7 +26,7 @@ fn project_euler_087() -> usize
     const UPPER_LIMIT: usize = 50_000_000;
 
     // (49_999_991 - 2**3 - 2**4).isqrt() = 7071
-    // Possible maximum value for sum.
+    // Any prime greater than 7071 will result in a sum greater than 50_000_000.
     let primes: Vec<_> = Primes::new(7071).iter().collect();
 
     let mut sums = HashSet::new();
