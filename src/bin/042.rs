@@ -29,7 +29,8 @@ fn word_value(word: &[u8]) -> i32
 
 /// # Coded Triangle Numbers
 ///
-/// The nth term of the sequence of triangle numbers is given by, `t_n` = 1/2 * n
+/// The nth term of the sequence of triangle numbers is given by, `t_n` = 1/2 *
+/// n
 /// * (n + 1); so the first ten triangle numbers are:
 ///
 /// 1, 3, 6, 10, 15, 21, 28, 36, 45, 55, ...
@@ -45,8 +46,7 @@ fn project_euler_042() -> usize
 {
     let proj_dir = std::env::current_dir().unwrap();
 
-    let file = std::fs::File::open(format!("{}/data/042.txt", proj_dir.display()))
-        .expect("Couldn't find file.");
+    let file = std::fs::File::open(proj_dir.join("data/042.txt")).expect("Couldn't find file.");
 
     let buf = BufReader::new(file);
 

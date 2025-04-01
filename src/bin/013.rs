@@ -6,18 +6,20 @@ use std::io::{BufReader, prelude::*};
 project_euler_solution!(013);
 
 /// # Large Sum
-/// Work out the first ten digits of the sum of the following one-hundred 50-digit numbers.
-/// 
+/// Work out the first ten digits of the sum of the following one-hundred
+/// 50-digit numbers.
+///
 /// / ... /
 fn project_euler_013() -> String
 {
     let proj_dir = std::env::current_dir().unwrap();
 
-    let file =
-        File::open(format!("{}/data/013.txt", proj_dir.display())).expect("Couldn't find file.");
+    let file = File::open(proj_dir.join("data/013.txt")).expect("Couldn't find file.");
+
     let buf = BufReader::new(file);
 
-    let sum = buf.lines()
+    let sum = buf
+        .lines()
         .map(|line| line.unwrap().parse::<Integer>().unwrap())
         .sum::<Integer>();
 

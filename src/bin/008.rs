@@ -18,8 +18,7 @@ fn project_euler_008() -> u64
 {
     let proj_dir = env::current_dir().unwrap();
 
-    let file =
-        File::open(format!("{}/data/008.txt", proj_dir.display())).expect("Couldn't find file.");
+    let file = File::open(proj_dir.join("data/008.txt")).expect("Couldn't find file.");
 
     let nums: Vec<u64> = BufReader::new(file)
         .lines()

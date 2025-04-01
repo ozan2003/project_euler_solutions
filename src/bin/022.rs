@@ -33,8 +33,7 @@ fn project_euler_022() -> usize
 {
     let proj_dir = std::env::current_dir().unwrap();
 
-    let file =
-        File::open(format!("{}/data/022.txt", proj_dir.display())).expect("Couldn't find file.");
+    let file = File::open(proj_dir.join("data/022.txt")).expect("Couldn't find file.");
 
     let buf = BufReader::new(file);
 
