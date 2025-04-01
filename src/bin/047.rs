@@ -3,12 +3,6 @@ use project_euler::utils::factors::pollards_rho;
 
 project_euler_solution!(047);
 
-// Find the number of distinct prime factors of a number.
-fn distinct_factor_num(num: u32) -> usize
-{
-    pollards_rho(num.into()).len()
-}
-
 /// # Distinct Primes Factors
 /// The first two consecutive numbers to have two distinct prime factors are:
 ///
@@ -48,6 +42,12 @@ fn project_euler_047() -> u32
     }
 
     unreachable!();
+}
+
+// Find the number of distinct prime factors of a number.
+fn distinct_factor_num(num: u32) -> usize
+{
+    pollards_rho(num.into()).len()
 }
 
 #[cfg(test)]

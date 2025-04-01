@@ -2,29 +2,6 @@ use project_euler::project_euler_solution;
 
 project_euler_solution!(014);
 
-fn collatz_seq(mut num: u64) -> impl Iterator<Item = u64>
-{
-    std::iter::from_fn(move || {
-        if num > 1
-        {
-            if num % 2 == 0
-            {
-                num /= 2;
-            }
-            else
-            {
-                num = 3 * num + 1;
-            }
-
-            Some(num)
-        }
-        else
-        {
-            None
-        }
-    })
-}
-
 /// # Longest Collatz sequence
 /// The following iterative sequence is defined for the set of positive
 /// integers: n -> n/2 (n is even)
@@ -49,4 +26,27 @@ fn project_euler_014() -> u64
     (1..UPPER_LIMIT)
         .max_by_key(|&num| collatz_seq(num).count())
         .unwrap()
+}
+
+fn collatz_seq(mut num: u64) -> impl Iterator<Item = u64>
+{
+    std::iter::from_fn(move || {
+        if num > 1
+        {
+            if num % 2 == 0
+            {
+                num /= 2;
+            }
+            else
+            {
+                num = 3 * num + 1;
+            }
+
+            Some(num)
+        }
+        else
+        {
+            None
+        }
+    })
 }

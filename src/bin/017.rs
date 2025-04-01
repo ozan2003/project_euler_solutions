@@ -13,6 +13,26 @@ const QUINTILLION: u64 = 1_000_000_000_000_000_000;
 
 project_euler_solution!(017);
 
+/// # Number Letter Counts
+/// If the numbers 1 to 5 are written out in words: one, two, three, four, five,
+/// then there are 3 + 3 + 5 + 4 + 4 = 19 letters used in total.
+///
+/// If all the numbers from 1 to 1000 (one thousand) inclusive were written out
+/// in words, how many letters would be used?
+///
+/// **NOTE**: Do not count spaces or hyphens. For example, 342 (three hundred
+/// and forty-two) contains 23 letters and 115 (one hundred and fifteen)
+/// contains 20 letters. The use of "and" when writing out numbers is in
+/// compliance with British usage.
+fn project_euler_017() -> usize
+{
+    (1..=1000)
+        // Count individual letters instead of bytes for correctness.
+        // Coulda used Vec<u8> or len() since all number names are ASCII compliant.
+        .map(|num| number_to_text(num).chars().count())
+        .sum()
+}
+
 // Return the numerical representation of the given number.
 fn number_to_text(mut num: u64) -> String
 {
@@ -135,26 +155,6 @@ fn number_to_text(mut num: u64) -> String
     }
 
     word
-}
-
-/// # Number Letter Counts
-/// If the numbers 1 to 5 are written out in words: one, two, three, four, five,
-/// then there are 3 + 3 + 5 + 4 + 4 = 19 letters used in total.
-///
-/// If all the numbers from 1 to 1000 (one thousand) inclusive were written out
-/// in words, how many letters would be used?
-///
-/// **NOTE**: Do not count spaces or hyphens. For example, 342 (three hundred
-/// and forty-two) contains 23 letters and 115 (one hundred and fifteen)
-/// contains 20 letters. The use of "and" when writing out numbers is in
-/// compliance with British usage.
-fn project_euler_017() -> usize
-{
-    (1..=1000)
-        // Count individual letters instead of bytes for correctness.
-        // Coulda used Vec<u8> or len() since all number names are ASCII compliant.
-        .map(|num| number_to_text(num).chars().count())
-        .sum()
 }
 
 #[cfg(test)]

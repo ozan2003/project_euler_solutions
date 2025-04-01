@@ -3,6 +3,25 @@ use project_euler::utils::primes::is_prime;
 
 project_euler_solution!(037);
 
+/// # Truncatable Primes
+/// The number 3797 has an interesting property. Being prime itself, it is
+/// possible to continuously remove digits from left to right, and remain prime
+/// at each stage: 3797, 797, 97, and 7. Similarly we can work from right to
+/// left: 3797, 379, 37, and 3.
+///
+/// Find the sum of the only eleven primes that are both truncatable from left
+/// to right and right to left.
+///
+/// NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
+fn project_euler_037() -> u32
+{
+    (23..) // 23 is the first truncatable prime.
+        .step_by(2) // Skip even numbers.
+        .filter(|&num| is_truncatable_prime(num))
+        .take(11)
+        .sum()
+}
+
 // Truncate a number from left.
 // 1234 -> 234 -> 34 -> 4
 fn left_truncate(mut num: u32) -> impl Iterator<Item = u32>
@@ -56,25 +75,6 @@ fn is_truncatable_prime(num: u32) -> bool
 
     left_truncate(num).all(|num| is_prime(num.into())) &&
         right_truncate(num).all(|num| is_prime(num.into()))
-}
-
-/// # Truncatable Primes
-/// The number 3797 has an interesting property. Being prime itself, it is
-/// possible to continuously remove digits from left to right, and remain prime
-/// at each stage: 3797, 797, 97, and 7. Similarly we can work from right to
-/// left: 3797, 379, 37, and 3.
-///
-/// Find the sum of the only eleven primes that are both truncatable from left
-/// to right and right to left.
-///
-/// NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
-fn project_euler_037() -> u32
-{
-    (23..) // 23 is the first truncatable prime.
-        .step_by(2) // Skip even numbers.
-        .filter(|&num| is_truncatable_prime(num))
-        .take(11)
-        .sum()
 }
 
 #[cfg(test)]

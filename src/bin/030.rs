@@ -2,22 +2,6 @@ use project_euler::project_euler_solution;
 
 project_euler_solution!(030);
 
-/// Returns true if the number is the sum of the fifth power of its digits.
-#[allow(clippy::used_underscore_binding)]
-fn is_sum_of_fifth_power(num: i32) -> bool
-{
-    let mut sum = 0;
-    let mut _num = num;
-
-    while _num > 0
-    {
-        sum += (_num % 10).pow(5);
-        _num /= 10;
-    }
-
-    sum == num
-}
-
 /// # Digit Fifth Power
 /// Surprisingly there are only three numbers that can be written as the sum of
 /// fourth powers of their digits:
@@ -41,6 +25,22 @@ fn project_euler_030() -> i32
     (2..UPPER_LIMIT)
         .filter(|&n| is_sum_of_fifth_power(n))
         .sum()
+}
+
+/// Returns true if the number is the sum of the fifth power of its digits.
+#[allow(clippy::used_underscore_binding)]
+fn is_sum_of_fifth_power(num: i32) -> bool
+{
+    let mut sum = 0;
+    let mut _num = num;
+
+    while _num > 0
+    {
+        sum += (_num % 10).pow(5);
+        _num /= 10;
+    }
+
+    sum == num
 }
 
 #[cfg(test)]

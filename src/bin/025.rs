@@ -3,18 +3,6 @@ use project_euler::project_euler_solution;
 
 project_euler_solution!(025);
 
-// Generate Fibonacci numbers.
-fn fibonaccis() -> impl Iterator<Item = Integer>
-{
-    let mut a = Integer::ZERO;
-    let mut b = Integer::ONE;
-
-    std::iter::from_fn(move || {
-        (a, b) = (b.clone(), &a + &b);
-        Some(a.clone())
-    })
-}
-
 /// # 1000-digit Fibonacci number
 ///
 /// The Fibonacci sequence is defined by the recurrence relation:
@@ -24,27 +12,27 @@ fn fibonaccis() -> impl Iterator<Item = Integer>
 /// Hence the first 12 terms will be:
 ///
 /// `F_1` = 1
-/// 
+///
 /// `F_2` = 1
-/// 
+///
 /// `F_3` = 2
-/// 
+///
 /// `F_4` = 3
-/// 
+///
 /// `F_5` = 5
-/// 
+///
 /// `F_6` = 8
-/// 
+///
 /// `F_7` = 13
-/// 
+///
 /// `F_8` = 21
-/// 
+///
 /// `F_9` = 34
-/// 
+///
 /// `F_10` = 55
-/// 
+///
 /// `F_11` = 89
-/// 
+///
 /// `F_12` = 144
 ///
 /// The 12th term, `F_12`, is the first term to contain three digits.
@@ -59,6 +47,18 @@ fn project_euler_025() -> usize
         .find(|(_i, n)| n.ilog(&UBig::from(10_u32)) >= 999) // This is faster.
         .map(|(i, _n)| i)
         .unwrap()
+}
+
+// Generate Fibonacci numbers.
+fn fibonaccis() -> impl Iterator<Item = Integer>
+{
+    let mut a = Integer::ZERO;
+    let mut b = Integer::ONE;
+
+    std::iter::from_fn(move || {
+        (a, b) = (b.clone(), &a + &b);
+        Some(a.clone())
+    })
 }
 
 #[cfg(test)]

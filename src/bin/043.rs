@@ -3,25 +3,6 @@ use project_euler::project_euler_solution;
 
 project_euler_solution!(043);
 
-static PRIMES: [u64; 7] = [2, 3, 5, 7, 11, 13, 17];
-
-/// Converts a slice of digits to a number.
-fn slice_to_num(slice: &[u64]) -> u64
-{
-    slice.iter().fold(0, |acc, &x| acc * 10 + x)
-}
-
-/// Check if all the 3 digit slices of the given slice are divisible by the
-/// corresponding prime.
-fn slice_divisibility(slice: &[u64]) -> bool
-{
-    slice
-        .windows(3)
-        .skip(1)
-        .zip(PRIMES.iter())
-        .all(|(slice, &prime)| slice_to_num(slice) % prime == 0)
-}
-
 /// # Sub-string Divisiblity
 /// The number, 1406357289, is a 0 to 9 pandigital number because it is made up
 /// of each of the digits 0 to 9 in some order, but it also has a rather
@@ -54,6 +35,25 @@ fn project_euler_043() -> u64
         .filter(|perm| slice_divisibility(perm))
         .map(|perm| slice_to_num(&perm))
         .sum()
+}
+
+static PRIMES: [u64; 7] = [2, 3, 5, 7, 11, 13, 17];
+
+/// Converts a slice of digits to a number.
+fn slice_to_num(slice: &[u64]) -> u64
+{
+    slice.iter().fold(0, |acc, &x| acc * 10 + x)
+}
+
+/// Check if all the 3 digit slices of the given slice are divisible by the
+/// corresponding prime.
+fn slice_divisibility(slice: &[u64]) -> bool
+{
+    slice
+        .windows(3)
+        .skip(1)
+        .zip(PRIMES.iter())
+        .all(|(slice, &prime)| slice_to_num(slice) % prime == 0)
 }
 
 #[cfg(test)]

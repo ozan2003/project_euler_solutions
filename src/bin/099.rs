@@ -5,45 +5,6 @@ use std::io::{BufReader, prelude::*};
 
 project_euler_solution!(099);
 
-struct Exponent
-{
-    base: u32,
-    exponent: u32,
-}
-
-impl PartialEq for Exponent
-{
-    fn eq(&self, other: &Self) -> bool
-    {
-        // a^b = c^d
-        // b * log(a) = d * log(c)
-        (f64::from(self.exponent) * f64::from(self.base).ln()) ==
-            (f64::from(other.exponent) * f64::from(other.base).ln())
-    }
-}
-
-impl Eq for Exponent
-{
-}
-
-impl Ord for Exponent
-{
-    fn cmp(&self, other: &Self) -> std::cmp::Ordering
-    {
-        (f64::from(self.exponent) * f64::from(self.base).ln())
-            .partial_cmp(&(f64::from(other.exponent) * f64::from(other.base).ln()))
-            .unwrap()
-    }
-}
-
-impl PartialOrd for Exponent
-{
-    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering>
-    {
-        Some(self.cmp(other))
-    }
-}
-
 /// # Largest Exponential
 /// Comparing two numbers written in index form like 2^11 and 3^7 is not
 /// difficult, as any calculator would confirm that 2^11 = 2048 < 3^7 = 2187.
@@ -84,4 +45,43 @@ fn project_euler_099() -> usize
         .unwrap();
 
     line_num
+}
+
+struct Exponent
+{
+    base: u32,
+    exponent: u32,
+}
+
+impl PartialEq for Exponent
+{
+    fn eq(&self, other: &Self) -> bool
+    {
+        // a^b = c^d
+        // b * log(a) = d * log(c)
+        (f64::from(self.exponent) * f64::from(self.base).ln()) ==
+            (f64::from(other.exponent) * f64::from(other.base).ln())
+    }
+}
+
+impl Eq for Exponent
+{
+}
+
+impl Ord for Exponent
+{
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering
+    {
+        (f64::from(self.exponent) * f64::from(self.base).ln())
+            .partial_cmp(&(f64::from(other.exponent) * f64::from(other.base).ln()))
+            .unwrap()
+    }
+}
+
+impl PartialOrd for Exponent
+{
+    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering>
+    {
+        Some(self.cmp(other))
+    }
 }

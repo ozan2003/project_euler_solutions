@@ -6,16 +6,6 @@ use std::sync::LazyLock;
 
 project_euler_solution!(022);
 
-static ALPHABET_INDEX: LazyLock<HashMap<u8, usize>> =
-    LazyLock::new(|| (b'A'..=b'Z').zip(1..).collect());
-
-fn name_score(name: &[u8]) -> usize
-{
-    name.iter()
-        .map(|ch| ALPHABET_INDEX[ch])
-        .sum()
-}
-
 /// # Names Scores
 ///
 /// Using names.txt (right click and 'Save Link/Target As...'), a 46K text file
@@ -56,5 +46,15 @@ fn project_euler_022() -> usize
         .iter()
         .enumerate()
         .map(|(i, name)| (i + 1) * name_score(name))
+        .sum()
+}
+
+static ALPHABET_INDEX: LazyLock<HashMap<u8, usize>> =
+    LazyLock::new(|| (b'A'..=b'Z').zip(1..).collect());
+
+fn name_score(name: &[u8]) -> usize
+{
+    name.iter()
+        .map(|ch| ALPHABET_INDEX[ch])
         .sum()
 }

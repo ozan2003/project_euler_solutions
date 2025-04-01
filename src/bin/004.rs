@@ -2,20 +2,6 @@ use project_euler::project_euler_solution;
 
 project_euler_solution!(004);
 
-/// Check if a number is a palindrome.
-///
-/// # Examples
-/// ```
-/// assert!(is_palindrome(90509));
-/// assert!(!is_palindrome(1234));
-/// ```
-fn is_palindrome(num: i32) -> bool
-{
-    let num_str = num.to_string();
-
-    num_str.chars().eq(num_str.chars().rev())
-}
-
 /// # Largest palindrome product
 ///
 /// A palindromic number reads the same both ways. The largest palindrome made
@@ -39,4 +25,18 @@ fn project_euler_004() -> i32
     }
 
     max_palindrome
+}
+
+/// Check if a number is a palindrome.
+///
+/// # Examples
+/// ```
+/// assert!(is_palindrome(90509));
+/// assert!(!is_palindrome(1234));
+/// ```
+fn is_palindrome(num: i32) -> bool
+{
+    let num_str = num.to_string();
+
+    num_str.chars().eq(num_str.chars().rev())
 }

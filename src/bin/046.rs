@@ -3,6 +3,35 @@ use project_euler::utils::primes::is_prime;
 
 project_euler_solution!(046);
 
+/// Goldbach's Other Conjecture
+/// It was proposed by Christian Goldbach that every odd composite number can be
+/// written as the sum of a prime and twice a square.
+///
+/// 9 = 7 + 2*1^2
+///
+/// 15 = 7 + 2*2^2
+///
+/// 21 = 3 + 2*3^2
+///
+/// 25 = 7 + 2*3^2
+///
+/// 27 = 19 + 2*2^2
+///
+/// 33 = 31 + 2*1^2
+///
+/// It turns out that the conjecture was false.
+///
+/// What is the smallest odd composite that cannot be written as the sum of a
+/// prime and twice a square?
+fn project_euler_046() -> i32
+{
+    (1..i32::MAX)
+        .step_by(2)
+        .skip(1) // Skip 1, it is not composite.
+        .find(|&n| decompose(n).is_none())
+        .unwrap()
+}
+
 /// Decompose a number into sum of a prime and twice a square.
 ///
 /// Such as:
@@ -61,35 +90,6 @@ fn decompose(num: i32) -> Option<(i32, i32)>
     }
 
     None
-}
-
-/// Goldbach's Other Conjecture
-/// It was proposed by Christian Goldbach that every odd composite number can be
-/// written as the sum of a prime and twice a square.
-///
-/// 9 = 7 + 2*1^2
-///
-/// 15 = 7 + 2*2^2
-///
-/// 21 = 3 + 2*3^2
-///
-/// 25 = 7 + 2*3^2
-///
-/// 27 = 19 + 2*2^2
-///
-/// 33 = 31 + 2*1^2
-///
-/// It turns out that the conjecture was false.
-///
-/// What is the smallest odd composite that cannot be written as the sum of a
-/// prime and twice a square?
-fn project_euler_046() -> i32
-{
-    (1..i32::MAX)
-        .step_by(2)
-        .skip(1) // Skip 1, it is not composite.
-        .find(|&n| decompose(n).is_none())
-        .unwrap()
 }
 
 #[cfg(test)]

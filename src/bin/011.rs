@@ -9,6 +9,30 @@ project_euler_solution!(011);
 
 type Matrix<T> = Vec<Vec<T>>;
 
+/// # Largest Product in a Grid
+///
+/// In the 20×20 grid below, four numbers along a diagonal line have been marked
+/// in red.
+///
+/// /.../
+///
+/// The product of these numbers is 26 × 63 × 78 × 14 = 1788696.
+///
+/// What is the greatest product of four adjacent numbers in the same direction
+/// (up, down, left, right, or diagonally) in the 20×20 grid?
+fn project_euler_011() -> u32
+{
+    let proj_dir = current_dir().unwrap();
+
+    let matrix = parse_matrix(&proj_dir.join("data/011.txt"));
+
+    max!(
+        max_diagonal_mult(&matrix),
+        max_horizontal_mult(&matrix),
+        max_vertical_mult(&matrix)
+    )
+}
+
 /// Parse the matrix from the file at the given path.
 ///
 /// # Arguments
@@ -142,29 +166,6 @@ fn max_diagonal_mult<T: PrimInt>(matrix: &Matrix<T>) -> T
     max
 }
 
-/// # Largest Product in a Grid
-///
-/// In the 20×20 grid below, four numbers along a diagonal line have been marked
-/// in red.
-///
-/// /.../
-///
-/// The product of these numbers is 26 × 63 × 78 × 14 = 1788696.
-///
-/// What is the greatest product of four adjacent numbers in the same direction
-/// (up, down, left, right, or diagonally) in the 20×20 grid?
-fn project_euler_011() -> u32
-{
-    let proj_dir = current_dir().unwrap();
-
-    let matrix = parse_matrix(&proj_dir.join("data/011.txt"));
-
-    max!(
-        max_diagonal_mult(&matrix),
-        max_horizontal_mult(&matrix),
-        max_vertical_mult(&matrix)
-    )
-}
 
 #[cfg(test)]
 mod tests

@@ -3,14 +3,6 @@ use project_euler::project_euler_solution;
 
 project_euler_solution!(015);
 
-/// # Factorial
-///
-/// Calculate the factorial of a number.
-fn factorial(n: i32) -> Integer
-{
-    (1..=n).map(Integer::from).product()
-}
-
 /// # Lattice Paths
 ///
 /// Starting in the top left corner of a 2×2 grid, and only being able to move
@@ -24,6 +16,15 @@ fn project_euler_015() -> Integer
     // 10S and 10Es
     factorial(40) / (factorial(20) * factorial(20))
 }
+
+/// # Factorial
+///
+/// Calculate the factorial of a number.
+fn factorial(n: i32) -> Integer
+{
+    (1..=n).map(Integer::from).product()
+}
+
 
 #[cfg(test)]
 mod tests

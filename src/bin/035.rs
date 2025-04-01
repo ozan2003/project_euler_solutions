@@ -4,35 +4,6 @@ use std::collections::HashSet;
 
 project_euler_solution!(035);
 
-/// All rotations of a number.
-/// # Example
-/// ```
-/// let mut rotations = rotations(197);
-/// assert_eq!(rotations.next(), Some(197));
-/// assert_eq!(rotations.next(), Some(719));
-/// assert_eq!(rotations.next(), Some(971));
-/// assert_eq!(rotations.next(), None);
-/// ```
-fn rotations(mut num: u32) -> impl Iterator<Item = u32>
-{
-    let mut num_len = u32::try_from(number_length(num)).expect("number length overflow");
-    let pow = 10_u32.pow(num_len - 1);
-
-    std::iter::from_fn(move || {
-        if num_len == 0
-        {
-            return None;
-        }
-
-        let result = num;
-        num = num % 10 * pow + num / 10;
-
-        num_len -= 1;
-
-        Some(result)
-    })
-}
-
 /// # Circular Primes
 /// The number, 197, is called a circular prime because all rotations of the
 /// digits: 197, 971, and 719, are themselves prime.
@@ -61,6 +32,35 @@ fn project_euler_035() -> usize
     }
 
     tally
+}
+
+/// All rotations of a number.
+/// # Example
+/// ```
+/// let mut rotations = rotations(197);
+/// assert_eq!(rotations.next(), Some(197));
+/// assert_eq!(rotations.next(), Some(719));
+/// assert_eq!(rotations.next(), Some(971));
+/// assert_eq!(rotations.next(), None);
+/// ```
+fn rotations(mut num: u32) -> impl Iterator<Item = u32>
+{
+    let mut num_len = u32::try_from(number_length(num)).expect("number length overflow");
+    let pow = 10_u32.pow(num_len - 1);
+
+    std::iter::from_fn(move || {
+        if num_len == 0
+        {
+            return None;
+        }
+
+        let result = num;
+        num = num % 10 * pow + num / 10;
+
+        num_len -= 1;
+
+        Some(result)
+    })
 }
 
 #[cfg(test)]
