@@ -17,8 +17,6 @@ pub mod primes;
 ///
 /// * `$number` - The problem number. Used to construct the function name in the
 ///   format `project_euler_N` where N is the problem number.
-///
-/// Note: Requires the `paste` crate for identifier concatenation.
 #[macro_export]
 macro_rules! project_euler_solution {
     ($number:expr) => {
