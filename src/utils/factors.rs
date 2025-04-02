@@ -44,7 +44,6 @@ pub fn trial_division(mut n: i64) -> BTreeMap<i64, u32>
     }
 
     for prime in Primes::new(usize::try_from(n.isqrt()).expect("Couldn't truncate i64 to usize"))
-        .iter()
         .map(|p| i64::try_from(p).expect("Prime too large for i64"))
     {
         while n % prime == 0

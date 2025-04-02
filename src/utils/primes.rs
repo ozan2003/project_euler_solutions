@@ -162,7 +162,7 @@ pub fn is_prime(num: u64) -> bool
 pub struct Primes
 {
     primes: BitVec,
-    //current_pos: usize,
+    current_pos: usize,
 }
 
 impl Primes
@@ -195,7 +195,7 @@ impl Primes
         {
             return Primes {
                 primes,
-                //current_pos: 0,
+                current_pos: 0,
             };
         }
 
@@ -213,7 +213,7 @@ impl Primes
         {
             return Primes {
                 primes,
-                //current_pos: 0,
+                current_pos: 0,
             };
         }
 
@@ -295,7 +295,7 @@ impl Primes
 
         Primes {
             primes,
-            //current_pos: 0,
+            current_pos: 0,
         }
     }
 
@@ -318,39 +318,38 @@ impl Primes
             .map(|(i, _b)| i)
     }
 
-    pub fn iter(&self) -> impl Iterator<Item = usize>
+    /*pub fn iter(&self) -> impl Iterator<Item = usize>
     {
         self.primes
             .iter()
             .enumerate()
             .filter(|&(_i, b)| b)
             .map(|(i, _b)| i)
-    }
+    }*/
 }
 
-/*impl Iterator for Primes
+impl Iterator for Primes
 {
     type Item = usize;
 
     fn next(&mut self) -> Option<Self::Item>
     {
-        // Iterate from `current_pos` onward.
-        while self.current_pos <= self.primes.len()
+        self.current_pos += 1;
+
+        // Look for the next prime.
+        while self.current_pos < self.primes.len()
         {
-            let num = self.current_pos;
-            self.current_pos += 1;
-
-            // Return the number if it's marked as prime.
-            if num >= 2 && self.is_prime(num)
+            if self.primes[self.current_pos]
             {
-                return Some(num);
+                return Some(self.current_pos);
             }
+            self.current_pos += 1;
         }
-        self.current_pos = 0; // Reset for next iteration.
 
-        None // No more primes.
+        // No more primes found.
+        None
     }
-}*/
+}
 
 #[cfg(test)]
 mod tests
@@ -759,7 +758,7 @@ mod tests
             4987, 4993, 4999,
         ];
 
-        assert_eq!(primes.iter().collect::<Vec<_>>(), expected);
+        assert_eq!(primes.into_iter().collect::<Vec<_>>(), expected);
     }
 
     #[test]

@@ -10,7 +10,7 @@ project_euler_solution!(069);
 /// relatively prime to nine, phi(9) = 6.
 ///
 /// / ... /
-/// 
+///
 /// It can be seen that n = 6 produces a maximum n/phi(n) for n <= 10.
 ///
 /// Find the value of n <= 1,000,000 for which n/phi(n) is a maximum.
@@ -33,7 +33,6 @@ fn project_euler_069() -> u32
      * the smallest primes that is less than 1_000_000.
      */
     Primes::new(UPPER_LIMIT as usize)
-        .iter()
         .map(|p| u32::try_from(p).expect("Prime too large for u32"))
         .scan(1, |acc, p| {
             *acc *= p;
