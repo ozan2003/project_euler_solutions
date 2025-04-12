@@ -82,7 +82,35 @@ pub fn number_length<T: PrimInt>(num: T) -> usize
 where
     f64: std::convert::From<T>,
 {
-    ((f64::from(num)).log10().floor()) as usize + 1
+    if num.is_zero()
+    {
+        return 1;
+    }
+
+    ((f64::from(num)).log10().floor() as usize) + 1
+}
+
+/// # Number Length for u64
+/// 
+/// Overload of `number_length` for u64.
+/// 
+/// # Examples
+/// ```
+/// assert_eq!(number_length_u64(123), 3);
+/// assert_eq!(number_length_u64(1000), 4);
+/// ```
+#[must_use]
+#[allow(clippy::cast_sign_loss)]
+#[allow(clippy::cast_possible_truncation)]
+pub fn number_length_u64(num: u64) -> usize
+{
+    // This one bypass the trait `From<u64>` is not being implemented for `f64`.
+    if num == 0
+    {
+        return 1;
+    }
+
+    (num as f64).log10().floor() as usize + 1
 }
 
 /// # Number Length with Base
@@ -197,8 +225,20 @@ mod tests
         assert_eq!(number_length(123), 3);
         assert_eq!(number_length(1000), 4);
         assert_eq!(number_length(1), 1);
+        assert_eq!(number_length(0), 1);
         assert_eq!(number_length(999999), 6);
         assert_eq!(number_length(1234567), 7);
+    }
+
+    #[test]
+    fn test_number_length_u64()
+    {
+        assert_eq!(number_length_u64(123), 3);
+        assert_eq!(number_length_u64(1000), 4);
+        assert_eq!(number_length_u64(1), 1);
+        assert_eq!(number_length_u64(0), 1);
+        assert_eq!(number_length_u64(999999), 6);
+        assert_eq!(number_length_u64(1234567), 7);
     }
 
     #[test]
