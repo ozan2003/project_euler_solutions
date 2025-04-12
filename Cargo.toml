@@ -5,7 +5,9 @@ edition = "2024"
 
 [dependencies]
 bit-vec = "0.8.0"
+cached = "0.55.1"
 dashu = "0.4.2"
+fraction = "0.15.3"
 num-traits = "0.2.19"
 paste = "1.0.15"
 permutohedron = "0.2.4"
