@@ -35,12 +35,12 @@ type Matrix<T> = Vec<Vec<T>>;
 /// let n = 5;
 /// let mtx = spiral_matrix(n).unwrap();
 /// assert_eq!(mtx, vec![
-    ///     vec![21, 22, 23, 24, 25],
-    ///     vec![20, 7, 8, 9, 10],
-    ///     vec![19, 6, 1, 2, 11],
-    ///     vec![18, 5, 4, 3, 12],
-    ///     vec![17, 16, 15, 14, 13],
-    /// ]);
+///     vec![21, 22, 23, 24, 25],
+///     vec![20, 7, 8, 9, 10],
+///     vec![19, 6, 1, 2, 11],
+///     vec![18, 5, 4, 3, 12],
+///     vec![17, 16, 15, 14, 13],
+/// ]);
 /// ```
 fn spiral_matrix(n: usize) -> Option<Matrix<usize>>
 {
