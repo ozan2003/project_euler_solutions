@@ -37,7 +37,7 @@ fn project_euler_027() -> i32
     // b must be prime since when n = 0, the polynomial equals `b`.
     // Therefore -999 <= b <= 1000 becomes 2 <= b <= 1000.
     let potential_b: Vec<i32> = (2..=1000)
-        .filter(|&x: &i32| is_prime(x.try_into().unwrap()))
+        .filter(|&x| is_prime(x.try_into().unwrap()))
         .collect();
 
     // a must be odd to ensure we get odd numbers for even n.
