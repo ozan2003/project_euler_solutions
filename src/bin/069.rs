@@ -33,6 +33,7 @@ fn project_euler_069() -> u32
      * the smallest primes that is less than 1_000_000.
      */
     Primes::new(UPPER_LIMIT as usize)
+        .iter()
         .map(|p| u32::try_from(p).expect("Prime too large for u32"))
         .scan(1, |acc, p| {
             *acc *= p;

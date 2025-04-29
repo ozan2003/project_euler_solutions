@@ -18,6 +18,7 @@ fn project_euler_035() -> usize
     const UPPER_LIMIT: usize = 1_000_000;
 
     let primes: HashSet<u32> = Primes::new(UPPER_LIMIT)
+        .iter()
         .map(|p| u32::try_from(p).expect("prime overflow"))
         .collect();
 

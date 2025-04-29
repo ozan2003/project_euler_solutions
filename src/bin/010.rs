@@ -11,5 +11,5 @@ fn project_euler_010() -> usize
 {
     const UPPER_LIMIT: usize = 2_000_000;
 
-    Primes::new(UPPER_LIMIT).sum()
+    Primes::new(UPPER_LIMIT).iter().sum()
 }
