@@ -83,7 +83,7 @@ fn decompose(num: i32) -> Option<(i32, i32)>
     {
         let remaining = num - 2 * square * square;
 
-        if is_prime(u64::try_from(remaining).expect("Number too large for u64"))
+        if is_prime(remaining.try_into().expect("Number too large for u64"))
         {
             return Some((remaining, square));
         }

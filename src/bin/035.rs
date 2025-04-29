@@ -19,7 +19,7 @@ fn project_euler_035() -> usize
 
     let primes: HashSet<u32> = Primes::new(UPPER_LIMIT)
         .iter()
-        .map(|p| u32::try_from(p).expect("prime overflow"))
+        .map(|p| p.try_into().expect("prime overflow"))
         .collect();
 
     let mut tally = 0;

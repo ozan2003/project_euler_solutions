@@ -49,11 +49,17 @@ pub fn trial_division(mut n: i64) -> BTreeMap<i64, u32>
             .expect("Couldn't truncate i64 to usize"),
     )
     .iter()
-    .map(|p| i64::try_from(p).expect("Prime too large for i64"))
+    .map(|p| {
+        p.try_into()
+            .expect("Prime too large for i64")
+    })
     {
         while n % prime == 0
         {
-            *factors.entry(prime).or_insert(0) += 1;
+            factors
+                .entry(prime)
+                .and_modify(|v| *v += 1)
+                .or_insert(1);
             n /= prime;
         }
     }
@@ -128,19 +134,28 @@ pub fn pollards_rho(mut num: i64) -> BTreeMap<i64, u32>
 
     if d == num
     {
-        *factors.entry(num).or_insert(0) += 1;
+        factors
+            .entry(num)
+            .and_modify(|v| *v += 1)
+            .or_insert(1);
     }
     // Look for other factors.
     else
     {
         for (factor, freq) in pollards_rho(d)
         {
-            *factors.entry(factor).or_insert(0) += freq;
+            factors
+                .entry(factor)
+                .and_modify(|v| *v += freq)
+                .or_insert(1);
         }
 
         for (factor, freq) in pollards_rho(num / d)
         {
-            *factors.entry(factor).or_insert(0) += freq;
+            factors
+                .entry(factor)
+                .and_modify(|v| *v += freq)
+                .or_insert(1);
         }
     }
 

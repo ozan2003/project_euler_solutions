@@ -24,7 +24,10 @@ fn project_euler_039() -> i32
                 if x * x + y * y == z * z
                 {
                     let p = x + y + z;
-                    *perimeters.entry(p).or_insert(0) += 1;
+                    perimeters
+                        .entry(p)
+                        .and_modify(|v| *v += 1)
+                        .or_insert(0);
                 }
             }
         }
