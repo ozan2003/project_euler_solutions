@@ -101,6 +101,7 @@ where
 /// ```
 #[must_use]
 #[allow(clippy::cast_sign_loss)]
+#[allow(clippy::cast_precision_loss)]
 #[allow(clippy::cast_possible_truncation)]
 pub fn number_length_u64(num: u64) -> usize
 {
