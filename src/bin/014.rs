@@ -1,3 +1,4 @@
+#![feature(gen_blocks)]
 use project_euler::project_euler_solution;
 
 project_euler_solution!(014);
@@ -30,23 +31,26 @@ fn project_euler_014() -> u32
 
 fn collatz_seq(mut num: u32) -> impl Iterator<Item = u32>
 {
-    std::iter::from_fn(move || {
-        if num > 1
+    gen move {
+        loop
         {
-            if num % 2 == 0
+            if num > 1
             {
-                num /= 2;
+                if num % 2 == 0
+                {
+                    num /= 2;
+                }
+                else
+                {
+                    num = 3 * num + 1;
+                }
+
+                yield num;
             }
             else
             {
-                num = 3 * num + 1;
+                break;
             }
-
-            Some(num)
         }
-        else
-        {
-            None
-        }
-    })
+    }
 }

@@ -1,3 +1,4 @@
+#![feature(gen_blocks)]
 use dashu::{Integer, integer::UBig};
 use project_euler::project_euler_solution;
 
@@ -52,13 +53,16 @@ fn project_euler_025() -> usize
 // Generate Fibonacci numbers.
 fn fibonaccis() -> impl Iterator<Item = Integer>
 {
-    let mut a = Integer::ZERO;
-    let mut b = Integer::ONE;
+    gen {
+        let mut a = Integer::ZERO;
+        let mut b = Integer::ONE;
 
-    std::iter::from_fn(move || {
-        (a, b) = (b.clone(), &a + &b);
-        Some(a.clone())
-    })
+        loop
+        {
+            (a, b) = (b.clone(), &a + &b);
+            yield a.clone();
+        }
+    }
 }
 
 #[cfg(test)]

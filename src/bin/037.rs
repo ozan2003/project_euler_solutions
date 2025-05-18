@@ -1,3 +1,4 @@
+#![feature(gen_blocks)]
 use project_euler::project_euler_solution;
 use project_euler::utils::primes::is_prime;
 
@@ -27,40 +28,33 @@ fn project_euler_037() -> u32
 fn left_truncate(mut num: u32) -> impl Iterator<Item = u32>
 {
     let mut len = num.ilog10();
-    std::iter::from_fn(move || {
-        // |->
-        // 12345
-        if len > 0
+
+    gen move {
+        while len > 0
         {
+            // |->
+            // 12345
             num %= 10_u32.pow(len);
             len -= 1;
 
-            Some(num)
+            yield num;
         }
-        else
-        {
-            None
-        }
-    })
+    }
 }
 
 // Truncate a number from right.
 // 1234 -> 123 -> 12 -> 1
 fn right_truncate(mut num: u32) -> impl Iterator<Item = u32>
 {
-    std::iter::from_fn(move || {
-        //   <-|
-        // 12345
-        if num > 10
+    gen move {
+        while num > 10
         {
+            //   <-|
+            // 12345
             num /= 10;
-            Some(num)
+            yield num;
         }
-        else
-        {
-            None
-        }
-    })
+    }
 }
 
 // Check if a number is a truncatable prime.
@@ -85,17 +79,19 @@ mod tests
     #[test]
     fn test_left_truncate()
     {
-        assert_eq!(left_truncate(123456).collect::<Vec<_>>(), vec![
-            23456, 3456, 456, 56, 6
-        ]);
+        assert_eq!(
+            left_truncate(123456).collect::<Vec<_>>(),
+            vec![23456, 3456, 456, 56, 6]
+        );
     }
 
     #[test]
     fn test_right_truncate()
     {
-        assert_eq!(right_truncate(123456).collect::<Vec<_>>(), vec![
-            12345, 1234, 123, 12, 1
-        ]);
+        assert_eq!(
+            right_truncate(123456).collect::<Vec<_>>(),
+            vec![12345, 1234, 123, 12, 1]
+        );
     }
 
     #[test]

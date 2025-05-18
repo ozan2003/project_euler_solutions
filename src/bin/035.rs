@@ -1,3 +1,4 @@
+#![feature(gen_blocks)]
 use project_euler::utils::primes::Primes;
 use project_euler::{project_euler_solution, utils::number_length};
 use std::collections::HashSet;
@@ -48,19 +49,17 @@ fn rotations(mut num: u32) -> impl Iterator<Item = u32>
     let mut num_len = u32::try_from(number_length(num)).expect("number length overflow");
     let pow = 10_u32.pow(num_len - 1);
 
-    std::iter::from_fn(move || {
-        if num_len == 0
+    gen move {
+        while num_len > 0
         {
-            return None;
+            let result = num;
+            num = num % 10 * pow + num / 10;
+
+            num_len -= 1;
+
+            yield result;
         }
-
-        let result = num;
-        num = num % 10 * pow + num / 10;
-
-        num_len -= 1;
-
-        Some(result)
-    })
+    }
 }
 
 #[cfg(test)]

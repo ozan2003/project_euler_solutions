@@ -1,3 +1,4 @@
+#![feature(gen_blocks)]
 use project_euler::project_euler_solution;
 
 project_euler_solution!(002);
@@ -23,13 +24,15 @@ fn project_euler_002() -> i32
 /// An iterator that generates the Fibonacci sequence.
 fn fibonaccis() -> impl Iterator<Item = i32>
 {
-    let mut a = 0;
-    let mut b = 1;
+    gen move {
+        let mut a = 0;
+        let mut b = 1;
 
-    std::iter::from_fn(move || {
-        (a, b) = (b, a + b);
-        Some(a)
-    })
+        loop {
+            yield a;
+            (a, b) = (b, a + b);
+        }
+    }
 }
 
 
