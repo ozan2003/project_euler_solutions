@@ -24,39 +24,41 @@ fn project_euler_024() -> String
     digits.into_iter().collect()
 }
 
-// Repeatedly generates the next lexicographic permutation of the given slice.
-// Returns true if a new permutation was generated, and false if the slice is
-// already at the last permutation.
-fn next_permutation<T: Ord>(arr: &mut [T]) -> bool
+/// Returns the next lexicographic permutation of the sequence.
+///
+/// Returns `false` if the sequence is the last permutation.
+///
+/// Credit: https://www.nayuki.io/page/next-lexicographical-permutation-algorithm
+fn next_permutation<T: Ord>(seq: &mut [T]) -> bool
 {
-    let last = arr.len().saturating_sub(1);
-
-    // Find the first index 'i' such that arr[i] < arr[i + 1].
-    let i = std::iter::from_fn(|| -> Option<usize> {
-        (0..last)
-            .rev()
-            .find(|&i| arr[i] < arr[i + 1])
-    })
-    .next();
-
-    let Some(i) = i
-    else
+    // Find non-increasing suffix
+    if seq.is_empty()
     {
         return false;
-    };
+    }
 
-    // Find the smallest element greater than arr[i] to the right of
-    // 'i'.
-    let j = std::iter::from_fn(|| -> Option<usize> {
-        (i + 1..arr.len())
-            .rev()
-            .find(|&j| arr[j] > arr[i])
-    })
-    .next()
-    .expect("No valid j found");
+    let mut i: usize = seq.len() - 1;
+    while i > 0 && seq[i - 1] >= seq[i]
+    {
+        i -= 1;
+    }
 
-    arr.swap(i, j);
-    arr[i + 1..].reverse();
+    if i == 0
+    {
+        return false;
+    }
+
+    // Find successor to pivot
+    let mut j: usize = seq.len() - 1;
+    while seq[j] <= seq[i - 1]
+    {
+        j -= 1;
+    }
+    seq.swap(i - 1, j);
+
+    // Reverse suffix
+    seq[i..].reverse();
+
     true
 }
 
