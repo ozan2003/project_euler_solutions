@@ -28,7 +28,7 @@ fn project_euler_024() -> String
 ///
 /// Returns `false` if the sequence is the last permutation.
 ///
-/// Credit: https://www.nayuki.io/page/next-lexicographical-permutation-algorithm
+/// Credit: <https://www.nayuki.io/page/next-lexicographical-permutation-algorithm>
 fn next_permutation<T: Ord>(seq: &mut [T]) -> bool
 {
     // Find non-increasing suffix

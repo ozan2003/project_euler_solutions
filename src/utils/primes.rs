@@ -404,7 +404,7 @@ impl Primes
     /// assert_eq!(primes_vec, vec![2, 3, 5, 7, 11, 13, 17, 19]);
     /// ```
     #[must_use]
-    pub fn iter(&self) -> PrimesIterator
+    pub fn iter(&self) -> PrimesIterator<'_>
     {
         PrimesIterator {
             primes: &self.primes,
