@@ -45,6 +45,6 @@ mod tests
     fn test_fibonaccis()
     {
         let fibs: Vec<i32> = fibonaccis().take(10).collect();
-        assert_eq!(fibs, vec![1, 1, 2, 3, 5, 8, 13, 21, 34, 55]);
+        assert_eq!(fibs, vec![0, 1, 1, 2, 3, 5, 8, 13, 21, 34]);
     }
 }
