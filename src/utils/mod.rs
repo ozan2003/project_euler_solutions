@@ -91,9 +91,9 @@ where
 }
 
 /// # Number Length for u64
-/// 
+///
 /// Overload of `number_length` for u64.
-/// 
+///
 /// # Examples
 /// ```
 /// assert_eq!(number_length_u64(123), 3);
@@ -190,6 +190,41 @@ macro_rules! min {
 macro_rules! max {
     ($x:expr) => ($x);
     ($x:expr, $($y:expr),+) => (::std::cmp::max($x, max!($($y),+)));
+}
+
+/// # Pythagorean triples
+///
+/// Generates Pythagorean triples using Euclid's formula[1].
+/// 
+/// [1]: <https://mathworld.wolfram.com/PythagoreanTriple.html>
+///
+/// # Example
+/// ```
+/// let triples: Vec<(i32, i32, i32)> = pythagorean_triples().take(5).collect();
+///
+/// assert_eq!(triples, vec![
+///    (3, 4, 5),
+///    (8, 6, 10),
+///    (5, 12, 13),
+///    (15, 8, 17),
+///    (12, 16, 20),
+/// ]);
+/// ```
+pub fn pythagorean_triples() -> impl Iterator<Item = (u32, u32, u32)>
+{
+    gen {
+        for v in 2..
+        {
+            for u in 1..v
+            {
+                let a = v * v - u * u;
+                let b = 2 * v * u;
+                let c = v * v + u * u;
+
+                yield (a, b, c);
+            }
+        }
+    }
 }
 
 #[cfg(test)]
