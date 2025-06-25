@@ -27,7 +27,7 @@ const FACTORIALS: [u32; 10] = [1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362_880];
 
 // Finds the sum of all digits' factorials of a number.
 #[allow(clippy::cast_sign_loss)]
-fn digit_factorial_sum(mut num: u32) -> u32
+const fn digit_factorial_sum(mut num: u32) -> u32
 {
     let mut sum = 0;
 
@@ -43,7 +43,7 @@ fn digit_factorial_sum(mut num: u32) -> u32
 // Checks if a number is a curious number.
 // A curious number is a number that is equal to the sum of the factorials of
 // its digits.
-fn is_curious_number(num: u32) -> bool
+const fn is_curious_number(num: u32) -> bool
 {
     num == digit_factorial_sum(num)
 }

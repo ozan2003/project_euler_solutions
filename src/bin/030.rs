@@ -29,7 +29,7 @@ fn project_euler_030() -> i32
 
 /// Returns true if the number is the sum of the fifth power of its digits.
 #[allow(clippy::used_underscore_binding)]
-fn is_sum_of_fifth_power(num: i32) -> bool
+const fn is_sum_of_fifth_power(num: i32) -> bool
 {
     let mut sum = 0;
     let mut _num = num;

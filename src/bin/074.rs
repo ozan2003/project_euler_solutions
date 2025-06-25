@@ -42,7 +42,7 @@ const FACTORIALS: [i32; 10] = [1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362_880];
 
 #[allow(clippy::cast_sign_loss)]
 // Sum of digits' factorials of a number.
-fn factorial_digit_sum(mut num: i32) -> i32
+const fn factorial_digit_sum(mut num: i32) -> i32
 {
     let mut sum = 0;
 
