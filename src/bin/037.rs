@@ -80,7 +80,7 @@ mod tests
     fn test_left_truncate()
     {
         assert_eq!(
-            left_truncate(123456).collect::<Vec<_>>(),
+            left_truncate(123_456).collect::<Vec<_>>(),
             vec![23456, 3456, 456, 56, 6]
         );
     }
@@ -89,7 +89,7 @@ mod tests
     fn test_right_truncate()
     {
         assert_eq!(
-            right_truncate(123456).collect::<Vec<_>>(),
+            right_truncate(123_456).collect::<Vec<_>>(),
             vec![12345, 1234, 123, 12, 1]
         );
     }

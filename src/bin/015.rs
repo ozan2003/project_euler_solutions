@@ -25,7 +25,6 @@ fn factorial(n: i32) -> Integer
     (1..=n).map(Integer::from).product()
 }
 
-
 #[cfg(test)]
 mod tests
 {

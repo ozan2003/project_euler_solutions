@@ -1,5 +1,6 @@
-use project_euler::project_euler_solution;
 use std::collections::HashSet;
+
+use project_euler::project_euler_solution;
 
 project_euler_solution!(074);
 
@@ -68,7 +69,7 @@ fn chain_length(mut num: i32) -> usize
         {
             break;
         }
-        
+
         chain.insert(num);
         chain_len += 1;
     }

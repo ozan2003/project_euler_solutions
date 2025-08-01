@@ -1,7 +1,8 @@
-use project_euler::project_euler_solution;
 use std::env;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
+
+use project_euler::project_euler_solution;
 
 project_euler_solution!(008);
 
@@ -18,12 +19,14 @@ fn project_euler_008() -> u64
 {
     let proj_dir = env::current_dir().unwrap();
 
-    let file = File::open(proj_dir.join("data/008.txt")).expect("Couldn't find file.");
+    let file =
+        File::open(proj_dir.join("data/008.txt")).expect("Couldn't find file.");
 
     let nums: Vec<u64> = BufReader::new(file)
         .lines()
         .map(|line| line.unwrap())
-        // Flatten the line into a char iterator otherwise we'll get a Vec<char> iterator.
+        // Flatten the line into a char iterator otherwise we'll get a Vec<char>
+        // iterator.
         .flat_map(|line| line.chars().collect::<Vec<char>>())
         .map(|ch| u64::from(ch.to_digit(10).unwrap()))
         .collect();

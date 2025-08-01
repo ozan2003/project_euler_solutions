@@ -63,18 +63,19 @@ fn weekday(mut year: i32, mut month: i32, day: i32) -> Weekday
         year -= 1;
     }
 
-    let h = day + 13 * (month + 1) / 5 + year + year / 4 - year / 100 + year / 400;
+    let h =
+        day + 13 * (month + 1) / 5 + year + year / 4 - year / 100 + year / 400;
 
     match h.rem_euclid(7)
     {
-        | 0 => Weekday::Saturday,
-        | 1 => Weekday::Sunday,
-        | 2 => Weekday::Monday,
-        | 3 => Weekday::Tuesday,
-        | 4 => Weekday::Wednesday,
-        | 5 => Weekday::Thursday,
-        | 6 => Weekday::Friday,
-        | _ => unreachable!(),
+        0 => Weekday::Saturday,
+        1 => Weekday::Sunday,
+        2 => Weekday::Monday,
+        3 => Weekday::Tuesday,
+        4 => Weekday::Wednesday,
+        5 => Weekday::Thursday,
+        6 => Weekday::Friday,
+        _ => unreachable!(),
     }
 }
 

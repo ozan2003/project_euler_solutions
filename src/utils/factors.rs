@@ -1,7 +1,9 @@
+use std::collections::BTreeMap;
+
+use rand::Rng;
+
 use crate::utils::gcd;
 use crate::utils::primes::Primes;
-use rand::Rng;
-use std::collections::BTreeMap;
 
 /// Computes the prime factorization of a number.
 ///
@@ -298,7 +300,7 @@ mod tests
     }
 
     #[test]
-    #[should_panic]
+    #[should_panic = "Pollard's rho may not always find a factor"]
     fn test_pollards_rho_not_working()
     {
         let f = pollards_rho(25);

@@ -59,7 +59,11 @@ fn square2(n: u32) -> BigFraction
     match n
     {
         0 => BigFraction::one(),
-        _ => BigFraction::one() + (BigFraction::one() / (BigFraction::one() + square2(n - 1))),
+        _ =>
+        {
+            BigFraction::one() +
+                (BigFraction::one() / (BigFraction::one() + square2(n - 1)))
+        },
     }
 }
 
@@ -109,7 +113,7 @@ mod tests
         let frac = BigFraction::new(3u32, 2u32);
         assert_eq!(number_lengths(&frac), (1, 1));
 
-        let frac = BigFraction::new(77899u32, 5124785u32);
+        let frac = BigFraction::new(77899u32, 5_124_785_u32);
         assert_eq!(number_lengths(&frac), (5, 7));
     }
 }

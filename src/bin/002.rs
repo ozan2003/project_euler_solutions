@@ -28,13 +28,13 @@ fn fibonaccis() -> impl Iterator<Item = i32>
         let mut a = 0;
         let mut b = 1;
 
-        loop {
+        loop
+        {
             yield a;
             (a, b) = (b, a + b);
         }
     }
 }
-
 
 #[cfg(test)]
 mod tests

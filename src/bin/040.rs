@@ -26,7 +26,7 @@ fn project_euler_040() -> u8
             n.to_string()
                 .into_bytes()
                 .into_iter()
-                .map(|b| (b - b'0'))
+                .map(|b| b - b'0')
         })
         .take(UPPER_LIMIT)
         .collect();

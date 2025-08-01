@@ -1,6 +1,7 @@
+use std::collections::HashSet;
+
 use project_euler::project_euler_solution;
 use project_euler::utils::primes::Primes;
-use std::collections::HashSet;
 
 project_euler_solution!(087);
 

@@ -1,6 +1,7 @@
-use project_euler::project_euler_solution;
 use std::collections::HashMap;
 use std::sync::LazyLock;
+
+use project_euler::project_euler_solution;
 
 const TEN: u64 = 10;
 const HUNDRED: u64 = 100;
@@ -28,7 +29,8 @@ fn project_euler_017() -> usize
 {
     (1..=1000)
         // Count individual letters instead of bytes for correctness.
-        // Coulda used Vec<u8> or len() since all number names are ASCII compliant.
+        // Coulda used Vec<u8> or len() since all number names are ASCII
+        // compliant.
         .map(|num| number_to_text(num).chars().count())
         .sum()
 }
@@ -88,7 +90,7 @@ fn number_to_text(mut num: u64) -> String
         word.push_str(WORD_REPR.get(&(num / TEN * TEN)).unwrap());
 
         // Combine the tens with hyphen.
-        if num % TEN != 0
+        if num.is_multiple_of(TEN)
         {
             //word.push('-');
             word.push_str(WORD_REPR.get(&(num % TEN)).unwrap());
@@ -100,7 +102,7 @@ fn number_to_text(mut num: u64) -> String
         //word.push(' ');
         word.push_str(WORD_REPR.get(&HUNDRED).unwrap());
 
-        if num % HUNDRED != 0
+        if num.is_multiple_of(HUNDRED)
         {
             //word.push_str(" and ");
             word.push_str("and");
@@ -175,11 +177,11 @@ mod tests
         assert_eq!(number_to_text(999), "ninehundredandninetynine");
         assert_eq!(number_to_text(1000), "onethousand");
         assert_eq!(number_to_text(1234), "onethousandtwohundredandthirtyfour");
-        assert_eq!(number_to_text(1000000), "onemillion");
-        assert_eq!(number_to_text(1000001), "onemillionone");
-        assert_eq!(number_to_text(1000000000), "onebillion");
-        assert_eq!(number_to_text(1000000001), "onebillionone");
-        assert_eq!(number_to_text(1000000000000), "onetrillion");
-        assert_eq!(number_to_text(1000000000000000), "onequadrillion");
+        assert_eq!(number_to_text(1_000_000), "onemillion");
+        assert_eq!(number_to_text(1_000_001), "onemillionone");
+        assert_eq!(number_to_text(1_000_000_000), "onebillion");
+        assert_eq!(number_to_text(1_000_000_001), "onebillionone");
+        assert_eq!(number_to_text(1_000_000_000_000), "onetrillion");
+        assert_eq!(number_to_text(1_000_000_000_000_000), "onequadrillion");
     }
 }

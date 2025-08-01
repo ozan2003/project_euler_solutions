@@ -45,7 +45,8 @@ fn project_euler_027() -> i32
     {
         for &b in &potential_b
         {
-            let consecutive_primes_n = number_of_consecutive_primes(|n| n * n + a * n + b);
+            let consecutive_primes_n =
+                number_of_consecutive_primes(|n| n * n + a * n + b);
             if consecutive_primes_n > max_consecutive_prime_n
             {
                 max_consecutive_prime_n = consecutive_primes_n;

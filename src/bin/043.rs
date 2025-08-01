@@ -53,7 +53,7 @@ fn slice_divisibility(slice: &[u64]) -> bool
         .windows(3)
         .skip(1)
         .zip(PRIMES.iter())
-        .all(|(slice, &prime)| slice_to_num(slice) % prime == 0)
+        .all(|(slice, &prime)| slice_to_num(slice).is_multiple_of(prime))
 }
 
 #[cfg(test)]

@@ -1,7 +1,9 @@
 #![feature(gen_blocks)]
-use project_euler::utils::primes::Primes;
-use project_euler::{project_euler_solution, utils::number_length};
 use std::collections::HashSet;
+
+use project_euler::project_euler_solution;
+use project_euler::utils::number_length;
+use project_euler::utils::primes::Primes;
 
 project_euler_solution!(035);
 
@@ -46,7 +48,8 @@ fn project_euler_035() -> usize
 /// ```
 fn rotations(mut num: u32) -> impl Iterator<Item = u32>
 {
-    let mut num_len = u32::try_from(number_length(num)).expect("number length overflow");
+    let mut num_len =
+        u32::try_from(number_length(num)).expect("number length overflow");
     let pow = 10_u32.pow(num_len - 1);
 
     gen move {

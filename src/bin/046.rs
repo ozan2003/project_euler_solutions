@@ -74,8 +74,8 @@ fn decompose(num: i32) -> Option<(i32, i32)>
      * We need to check for `k`s up to sqrt(n/2),
      * to see if n - 2k^2 is prime.
      *
-     * If we can't find a prime p that satisfies the equation, then n cannot be
-     * decomposed and Goldbach's conjecture is disproven.
+     * If we can't find a prime p that satisfies the equation, then n cannot
+     * be decomposed and Goldbach's conjecture is disproven.
      */
     let max_square = (num / 2).isqrt();
 
@@ -83,7 +83,11 @@ fn decompose(num: i32) -> Option<(i32, i32)>
     {
         let remaining = num - 2 * square * square;
 
-        if is_prime(remaining.try_into().expect("Number too large for u64"))
+        if is_prime(
+            remaining
+                .try_into()
+                .expect("Number too large for u64"),
+        )
         {
             return Some((remaining, square));
         }

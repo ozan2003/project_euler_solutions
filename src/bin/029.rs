@@ -1,6 +1,7 @@
+use std::collections::HashSet;
+
 use dashu::Integer;
 use project_euler::project_euler_solution;
-use std::collections::HashSet;
 
 project_euler_solution!(029);
 
@@ -28,7 +29,8 @@ fn project_euler_029() -> usize
     const LOWER_LIMIT: usize = 2;
     const UPPER_LIMIT: usize = 100;
 
-    let mut unique_nums = HashSet::<Integer>::with_capacity((UPPER_LIMIT - LOWER_LIMIT).pow(2));
+    let mut unique_nums =
+        HashSet::<Integer>::with_capacity((UPPER_LIMIT - LOWER_LIMIT).pow(2));
 
     for a in LOWER_LIMIT..=UPPER_LIMIT
     {

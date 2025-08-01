@@ -1,4 +1,5 @@
-use project_euler::{project_euler_solution, utils::lcm};
+use project_euler::project_euler_solution;
+use project_euler::utils::lcm;
 
 project_euler_solution!(005);
 

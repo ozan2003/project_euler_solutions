@@ -1,5 +1,6 @@
 #![feature(gen_blocks)]
-use dashu::{Integer, integer::UBig};
+use dashu::Integer;
+use dashu::integer::UBig;
 use project_euler::project_euler_solution;
 
 project_euler_solution!(025);

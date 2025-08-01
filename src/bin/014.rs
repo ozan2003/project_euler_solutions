@@ -36,7 +36,7 @@ fn collatz_seq(mut num: u32) -> impl Iterator<Item = u32>
         {
             if num > 1
             {
-                if num % 2 == 0
+                if num.is_multiple_of(2)
                 {
                     num /= 2;
                 }

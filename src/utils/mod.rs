@@ -1,6 +1,7 @@
+use std::mem::swap;
+
 use num_traits::float::Float;
 use num_traits::int::PrimInt;
-use std::mem::swap;
 
 pub mod factors;
 pub mod primes;
@@ -132,7 +133,10 @@ pub fn number_length_u64(num: u64) -> usize
 /// Panics if the conversion from integers 2..=16 to type T fails.
 #[allow(clippy::cast_possible_truncation)]
 #[allow(clippy::cast_sign_loss)]
-pub fn number_length_with_base<T: PrimInt>(num: T, base: T) -> Result<usize, &'static str>
+pub fn number_length_with_base<T: PrimInt>(
+    num: T,
+    base: T,
+) -> Result<usize, &'static str>
 where
     f64: std::convert::From<T>,
 {
@@ -195,7 +199,7 @@ macro_rules! max {
 /// # Pythagorean triples
 ///
 /// Generates Pythagorean triples using Euclid's formula[1].
-/// 
+///
 /// [1]: <https://mathworld.wolfram.com/PythagoreanTriple.html>
 ///
 /// # Example
@@ -230,8 +234,9 @@ pub fn pythagorean_triples() -> impl Iterator<Item = (u32, u32, u32)>
 #[cfg(test)]
 mod tests
 {
-    use super::*;
     use core::f64;
+
+    use super::*;
 
     #[test]
     fn test_gcd()
@@ -241,7 +246,7 @@ mod tests
         assert_eq!(gcd(48, 18), 6);
         assert_eq!(gcd(54, 24), 6);
         assert_eq!(gcd(7, 13), 1);
-        assert_eq!(gcd(28851538, 1183019), 17657);
+        assert_eq!(gcd(28_851_538, 1_183_019), 17657);
     }
 
     #[test]
@@ -262,8 +267,8 @@ mod tests
         assert_eq!(number_length(1000), 4);
         assert_eq!(number_length(1), 1);
         assert_eq!(number_length(0), 1);
-        assert_eq!(number_length(999999), 6);
-        assert_eq!(number_length(1234567), 7);
+        assert_eq!(number_length(999_999), 6);
+        assert_eq!(number_length(1_234_567), 7);
     }
 
     #[test]
@@ -273,8 +278,8 @@ mod tests
         assert_eq!(number_length_u64(1000), 4);
         assert_eq!(number_length_u64(1), 1);
         assert_eq!(number_length_u64(0), 1);
-        assert_eq!(number_length_u64(999999), 6);
-        assert_eq!(number_length_u64(1234567), 7);
+        assert_eq!(number_length_u64(999_999), 6);
+        assert_eq!(number_length_u64(1_234_567), 7);
     }
 
     #[test]
@@ -294,10 +299,64 @@ mod tests
         assert!(is_integer(-1.0));
         assert!(is_integer(2.0));
         assert!(!is_integer(1.1));
-        assert!(!is_integer(2.0000000000001));
+        assert!(!is_integer(2.000_000_000_000_1));
         assert!(is_integer(0.0));
         assert!(is_integer(-5.0));
         assert!(!is_integer(f64::consts::PI));
         assert!(!is_integer(-2.5));
+    }
+
+    #[test]
+    fn test_pythagorean_triples()
+    {
+        let triples: Vec<(u32, u32, u32)> =
+            pythagorean_triples().take(5).collect();
+
+        assert_eq!(
+            triples,
+            vec![
+                (3, 4, 5),
+                (8, 6, 10),
+                (5, 12, 13),
+                (15, 8, 17),
+                (12, 16, 20),
+            ]
+        );
+
+        // Test that each triple satisfies the Pythagorean theorem
+        for (a, b, c) in triples
+        {
+            assert_eq!(a * a + b * b, c * c);
+        }
+
+        // Test first 10 triples
+        let first_ten: Vec<(u32, u32, u32)> =
+            pythagorean_triples().take(10).collect();
+        for (a, b, c) in first_ten
+        {
+            assert_eq!(a * a + b * b, c * c);
+            assert!(a > 0 && b > 0 && c > 0);
+            assert!(c > a && c > b);
+        }
+    }
+
+    #[test]
+    fn test_min_macro()
+    {
+        assert_eq!(min!(1, 2, 3), 1);
+        assert_eq!(min!(-7, 6, 8, -4, 0), -7);
+        assert_eq!(min!(5), 5);
+        assert_eq!(min!(10, 5), 5);
+        assert_eq!(min!(100, 200, 50, 75), 50);
+    }
+
+    #[test]
+    fn test_max_macro()
+    {
+        assert_eq!(max!(1, 2, 3), 3);
+        assert_eq!(max!(-7, 6, 8, -4, 0), 8);
+        assert_eq!(max!(5), 5);
+        assert_eq!(max!(10, 5), 10);
+        assert_eq!(max!(100, 200, 50, 75), 200);
     }
 }

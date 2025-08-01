@@ -31,7 +31,6 @@ project_euler_solution!(012);
 ///
 /// What is the value of the first triangle number to have over five hundred
 /// divisors?
-/// 
 fn project_euler_012() -> u32
 {
     triangulars()

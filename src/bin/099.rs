@@ -1,7 +1,9 @@
-use project_euler::project_euler_solution;
 use std::cmp::{Eq, Ord, PartialEq, PartialOrd};
 use std::fs::File;
-use std::io::{BufReader, prelude::*};
+use std::io::BufReader;
+use std::io::prelude::*;
+
+use project_euler::project_euler_solution;
 
 project_euler_solution!(099);
 
@@ -22,7 +24,8 @@ fn project_euler_099() -> usize
 {
     let proj_dir = std::env::current_dir().unwrap();
 
-    let file = File::open(proj_dir.join("data/099.txt")).expect("Couldn't find file.");
+    let file =
+        File::open(proj_dir.join("data/099.txt")).expect("Couldn't find file.");
 
     let buf = BufReader::new(file);
 
@@ -31,7 +34,8 @@ fn project_euler_099() -> usize
         .zip(1..)
         .max_by_key(|(nums, _line_num)| {
             let (base, exp) = nums
-                // Result itself is reference, borrow its internal Ok(...) instead.
+                // Result itself is reference, borrow its internal Ok(...)
+                // instead.
                 .as_ref()
                 .unwrap()
                 .split_once(',')
@@ -73,7 +77,9 @@ impl Ord for Exponent
     fn cmp(&self, other: &Self) -> std::cmp::Ordering
     {
         (f64::from(self.exponent) * f64::from(self.base).ln())
-            .partial_cmp(&(f64::from(other.exponent) * f64::from(other.base).ln()))
+            .partial_cmp(
+                &(f64::from(other.exponent) * f64::from(other.base).ln()),
+            )
             .unwrap()
     }
 }

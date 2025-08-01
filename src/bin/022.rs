@@ -1,8 +1,10 @@
-use project_euler::project_euler_solution;
 use std::collections::HashMap;
 use std::fs::File;
-use std::io::{BufReader, prelude::*};
+use std::io::BufReader;
+use std::io::prelude::*;
 use std::sync::LazyLock;
+
+use project_euler::project_euler_solution;
 
 project_euler_solution!(022);
 
@@ -23,7 +25,8 @@ fn project_euler_022() -> usize
 {
     let proj_dir = std::env::current_dir().unwrap();
 
-    let file = File::open(proj_dir.join("data/022.txt")).expect("Couldn't find file.");
+    let file =
+        File::open(proj_dir.join("data/022.txt")).expect("Couldn't find file.");
 
     let buf = BufReader::new(file);
 

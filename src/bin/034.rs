@@ -56,7 +56,7 @@ mod tests
     #[test]
     fn test_digit_factorial_sum()
     {
-        assert_eq!(digit_factorial_sum(149), 362905);
+        assert_eq!(digit_factorial_sum(149), 362_905);
         assert_eq!(digit_factorial_sum(47585), 45624);
     }
 

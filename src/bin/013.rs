@@ -1,7 +1,9 @@
+use std::fs::File;
+use std::io::BufReader;
+use std::io::prelude::*;
+
 use dashu::Integer;
 use project_euler::project_euler_solution;
-use std::fs::File;
-use std::io::{BufReader, prelude::*};
 
 project_euler_solution!(013);
 
@@ -14,7 +16,8 @@ fn project_euler_013() -> String
 {
     let proj_dir = std::env::current_dir().unwrap();
 
-    let file = File::open(proj_dir.join("data/013.txt")).expect("Couldn't find file.");
+    let file =
+        File::open(proj_dir.join("data/013.txt")).expect("Couldn't find file.");
 
     let buf = BufReader::new(file);
 

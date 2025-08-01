@@ -1,7 +1,9 @@
-use project_euler::{project_euler_solution, utils::is_integer};
 use std::collections::HashMap;
 use std::io::{BufRead, BufReader};
 use std::sync::LazyLock;
+
+use project_euler::project_euler_solution;
+use project_euler::utils::is_integer;
 
 project_euler_solution!(042);
 
@@ -24,7 +26,8 @@ fn project_euler_042() -> usize
 {
     let proj_dir = std::env::current_dir().unwrap();
 
-    let file = std::fs::File::open(proj_dir.join("data/042.txt")).expect("Couldn't find file.");
+    let file = std::fs::File::open(proj_dir.join("data/042.txt"))
+        .expect("Couldn't find file.");
 
     let buf = BufReader::new(file);
 
@@ -43,7 +46,8 @@ fn project_euler_042() -> usize
         .count()
 }
 
-static ALPHABET: LazyLock<HashMap<u8, i32>> = LazyLock::new(|| (b'A'..=b'Z').zip(1..=26).collect());
+static ALPHABET: LazyLock<HashMap<u8, i32>> =
+    LazyLock::new(|| (b'A'..=b'Z').zip(1..=26).collect());
 
 // Check if n is triangular number.
 fn is_triangular(n: i32) -> bool

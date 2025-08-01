@@ -1,4 +1,5 @@
-use project_euler::{project_euler_solution, utils::gcd};
+use project_euler::project_euler_solution;
+use project_euler::utils::gcd;
 
 project_euler_solution!(033);
 

@@ -1,9 +1,10 @@
 #![feature(iter_array_chunks)]
-use poker::{Card, Hand};
-use project_euler::project_euler_solution;
 use std::env::current_dir;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
+
+use poker::{Card, Hand};
+use project_euler::project_euler_solution;
 
 project_euler_solution!(054);
 
@@ -64,7 +65,8 @@ fn project_euler_054() -> usize
 {
     let proj_dir = current_dir().unwrap();
 
-    let file = File::open(proj_dir.join("data/054.txt")).expect("Failed to open file");
+    let file =
+        File::open(proj_dir.join("data/054.txt")).expect("Failed to open file");
     let buf = BufReader::new(file);
 
     let player_cards: Vec<(Hand, Hand)> = buf
@@ -94,7 +96,8 @@ fn parse_cards(card_list: &str) -> (Hand, Hand)
         .map(Card::new)
         .array_chunks::<5>();
 
-    // Unwrap is safe here because we know there are exactly 10 cards in the input
+    // Unwrap is safe here because we know there are exactly 10 cards in the
+    // input
     let hand_p1 = Hand::new(iter.next().unwrap());
     let hand_p2 = Hand::new(iter.next().unwrap());
 
@@ -146,10 +149,11 @@ mod poker
     impl Card
     {
         /// Creates a new `Card` from a string representation.
-        /// 
+        ///
         /// # Arguments
-        /// * `text` - A string slice representing the card, e.g., "2H" for 2 of Hearts.
-        /// 
+        /// * `text` - A string slice representing the card, e.g., "2H" for 2 of
+        ///   Hearts.
+        ///
         /// # Returns
         /// A new `Card` instance with the corresponding value and suit.
         pub fn new(text: &str) -> Self
@@ -253,7 +257,7 @@ mod poker
                     2 => pair_count += 1,
                     3 | 4 => is_triplet_or_higher = true,
                     _ =>
-                    {}
+                    {},
                 }
             }
 
@@ -278,7 +282,7 @@ mod poker
                     3 => has_triplet = true,
                     4 => has_quad = true,
                     _ =>
-                    {}
+                    {},
                 }
             }
 
@@ -356,7 +360,7 @@ mod poker
                     2 => has_pair = true,
                     3 => has_triplet = true,
                     _ =>
-                    {}
+                    {},
                 }
             }
 
@@ -512,7 +516,7 @@ mod poker
                 {
                     // If same rank, compare by specific tie-breaking rules
                     self.compare_same_rank(other, &self_rank)
-                }
+                },
                 other_ordering => other_ordering,
             }
         }
@@ -538,7 +542,7 @@ mod poker
                 HandRank::StraightFlush | HandRank::Straight =>
                 {
                     self.compare_straight_high_card(other)
-                }
+                },
 
                 // Compare the quad value, then the kicker
                 HandRank::FourOfAKind => self.compare_four_of_a_kind(other),
@@ -547,7 +551,10 @@ mod poker
                 HandRank::FullHouse => self.compare_full_house(other),
 
                 // Compare all cards in descending order (like High Card)
-                HandRank::Flush | HandRank::HighCard => self.compare_high_cards(other),
+                HandRank::Flush | HandRank::HighCard =>
+                {
+                    self.compare_high_cards(other)
+                },
 
                 // Compare the triplet value, then the remaining 2 kickers
                 HandRank::ThreeOfAKind => self.compare_three_of_a_kind(other),
@@ -555,7 +562,8 @@ mod poker
                 // Compare the higher pair, then the lower pair, then the kicker
                 HandRank::TwoPair => self.compare_two_pair(other),
 
-                // Compare the pair value first, then the remaining 3 kicker cards.
+                // Compare the pair value first, then the remaining 3 kicker
+                // cards.
                 HandRank::OnePair => self.compare_one_pair(other),
             }
         }
@@ -571,7 +579,8 @@ mod poker
         /// the first hand wins, `Ordering::Less` if the second hand wins
         fn compare_straight_high_card(&self, other: &Hand) -> Ordering
         {
-            // For straights, compare the highest card (but handle Ace-low special case)
+            // For straights, compare the highest card (but handle Ace-low
+            // special case)
             let self_high = self.get_straight_high_card();
             let other_high = other.get_straight_high_card();
             self_high.cmp(&other_high)
@@ -642,7 +651,7 @@ mod poker
                     let self_kicker = self.get_n_of_a_kind_value(2);
                     let other_kicker = other.get_n_of_a_kind_value(2);
                     self_kicker.cmp(&other_kicker)
-                }
+                },
                 other_ordering => other_ordering,
             }
         }

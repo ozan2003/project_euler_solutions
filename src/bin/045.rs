@@ -1,4 +1,5 @@
-use project_euler::{project_euler_solution, utils::is_integer};
+use project_euler::project_euler_solution;
+use project_euler::utils::is_integer;
 
 project_euler_solution!(045);
 

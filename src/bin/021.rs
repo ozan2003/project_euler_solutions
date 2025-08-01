@@ -31,7 +31,8 @@ fn d(n: i32) -> i32
         {
             sum += i;
             let j = n / i;
-            // If `n` is a perfect square, we don't want to add its square root twice.
+            // If `n` is a perfect square, we don't want to add its square root
+            // twice.
             if j != i
             {
                 sum += j;

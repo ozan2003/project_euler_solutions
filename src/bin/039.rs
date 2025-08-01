@@ -1,5 +1,6 @@
-use project_euler::project_euler_solution;
 use std::collections::HashMap;
+
+use project_euler::project_euler_solution;
 
 project_euler_solution!(039);
 

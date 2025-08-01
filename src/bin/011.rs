@@ -1,9 +1,10 @@
-use num_traits::int::PrimInt;
-use project_euler::{max, project_euler_solution};
 use std::env::current_dir;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 use std::path::PathBuf;
+
+use num_traits::int::PrimInt;
+use project_euler::{max, project_euler_solution};
 
 project_euler_solution!(011);
 
@@ -118,7 +119,10 @@ fn max_vertical_mult<T: PrimInt>(matrix: &Matrix<T>) -> T
     {
         for j in 0..matrix[i].len()
         {
-            let product = matrix[i][j] * matrix[i + 1][j] * matrix[i + 2][j] * matrix[i + 3][j];
+            let product = matrix[i][j] *
+                matrix[i + 1][j] *
+                matrix[i + 2][j] *
+                matrix[i + 3][j];
             max = max.max(product);
         }
     }
@@ -146,8 +150,10 @@ fn max_diagonal_mult<T: PrimInt>(matrix: &Matrix<T>) -> T
     {
         for j in 0..matrix[i].len() - 3
         {
-            let product =
-                matrix[i][j] * matrix[i + 1][j + 1] * matrix[i + 2][j + 2] * matrix[i + 3][j + 3];
+            let product = matrix[i][j] *
+                matrix[i + 1][j + 1] *
+                matrix[i + 2][j + 2] *
+                matrix[i + 3][j + 3];
             max = max.max(product);
         }
     }
@@ -157,8 +163,10 @@ fn max_diagonal_mult<T: PrimInt>(matrix: &Matrix<T>) -> T
     {
         for j in 3..matrix[i].len()
         {
-            let product =
-                matrix[i][j] * matrix[i + 1][j - 1] * matrix[i + 2][j - 2] * matrix[i + 3][j - 3];
+            let product = matrix[i][j] *
+                matrix[i + 1][j - 1] *
+                matrix[i + 2][j - 2] *
+                matrix[i + 3][j - 3];
             max = max.max(product);
         }
     }
@@ -166,12 +174,12 @@ fn max_diagonal_mult<T: PrimInt>(matrix: &Matrix<T>) -> T
     max
 }
 
-
 #[cfg(test)]
 mod tests
 {
-    use super::*;
     use std::sync::LazyLock;
+
+    use super::*;
 
     static MATRIX: LazyLock<Matrix<u32>> = LazyLock::new(|| {
         vec![
