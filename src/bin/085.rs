@@ -28,8 +28,8 @@ fn project_euler_085() -> usize
     let mut closest_count: usize = 0;
     let mut area = 0;
 
-    // x * y = UPPER_LIMIT is symmetric, so we only need to check
-    // m in the range [1, UPPER_LIMIT / 2]
+    // Since x * y = UPPER_LIMIT is symmetric to x = y, we only need to check
+    // m in the range of [1, UPPER_LIMIT / 2]
     for m in 1..(UPPER_LIMIT / 2)
     {
         let n = UPPER_LIMIT / m;
